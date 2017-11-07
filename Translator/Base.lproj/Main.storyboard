@@ -51,6 +51,9 @@
                                         <state key="normal" title="Английский">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="11a-Hr-KSl" kind="modal" id="xk8-Pd-4gK"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aEv-UK-NMs" userLabel="SecondLanguage">
                                         <rect key="frame" x="220" y="25" width="147" height="30"/>
@@ -59,6 +62,9 @@
                                         <state key="normal" title="Русский">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="11a-Hr-KSl" kind="modal" id="LOY-vR-B8W"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.61568627450980395" green="0.13725490196078433" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -103,7 +109,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="copyIcon"/>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FfL-zF-1n5">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FfL-zF-1n5">
                                         <rect key="frame" x="23" y="27" width="277" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -114,14 +120,12 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.61568627450980395" green="0.13725490196078433" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.61568627450000002" green="0.13725490200000001" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="translateIcon" selectedImage="translateIcon" id="T9O-aL-8mT">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <connections>
-                        <outlet property="addToClipboardButton" destination="sH5-Tf-2KS" id="fNL-eo-IT2"/>
-                        <outlet property="addToFavouriteButton" destination="BED-ya-n8E" id="7ub-aM-TWx"/>
                         <outlet property="clearTextViewButton" destination="02P-aX-CVr" id="4iH-08-ZhO"/>
                         <outlet property="inputTextView" destination="kOq-Vk-2iK" id="eQl-SQ-gK2"/>
                         <outlet property="inputView" destination="7hk-78-HpW" id="PJG-Tu-I94"/>
@@ -132,6 +136,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YDJ-SU-Kdc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-956.5" y="-1273.5"/>
+        </scene>
+        <!--Languages View Controller-->
+        <scene sceneID="KNI-L9-T6O">
+            <objects>
+                <viewController id="11a-Hr-KSl" customClass="LanguagesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bqf-hK-zoH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="IW6-MH-i3R">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="11a-Hr-KSl" id="bs6-oG-mqV"/>
+                                    <outlet property="delegate" destination="11a-Hr-KSl" id="cIr-2A-O2h"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" misplaced="YES" id="HXp-QM-3u4">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WpQ-ru-wrM">
+                                        <rect key="frame" x="8" y="25" width="64" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Отмена">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="closeModalAction:" destination="11a-Hr-KSl" eventType="touchUpInside" id="4tv-rh-Y0a"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Изменить язык" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aNz-WM-OHP">
+                                        <rect key="frame" x="120" y="29" width="134" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.61568627450000002" green="0.13725490200000001" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p8V-vo-D5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-224" y="-1505"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="9BN-6a-ypH">
@@ -180,4 +234,7 @@
         <image name="starIcon" width="33" height="32"/>
         <image name="translateIcon" width="29" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="LOY-vR-B8W"/>
+    </inferredMetricsTieBreakers>
 </document>
