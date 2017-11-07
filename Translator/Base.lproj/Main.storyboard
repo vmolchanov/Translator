@@ -80,12 +80,29 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <connections>
                                             <outlet property="delegate" destination="Ivu-ri-lPi" id="aQe-te-QIX"/>
                                         </connections>
                                     </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" misplaced="YES" id="RhJ-Kb-ZvP">
+                                <rect key="frame" x="5" y="270" width="365" height="343"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BED-ya-n8E" userLabel="Favourite">
+                                        <rect key="frame" x="316" y="16" width="33" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="starIcon"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sH5-Tf-2KS" userLabel="Copy">
+                                        <rect key="frame" x="319" y="68" width="27" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="copyIcon"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -99,6 +116,7 @@
                         <outlet property="clearTextViewButton" destination="02P-aX-CVr" id="4iH-08-ZhO"/>
                         <outlet property="inputTextView" destination="kOq-Vk-2iK" id="eQl-SQ-gK2"/>
                         <outlet property="inputView" destination="7hk-78-HpW" id="PJG-Tu-I94"/>
+                        <outlet property="outputView" destination="RhJ-Kb-ZvP" id="Zwr-ZF-8Zs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YDJ-SU-Kdc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -145,9 +163,11 @@
     </scenes>
     <resources>
         <image name="changeLanguageIcon" width="29" height="21"/>
+        <image name="copyIcon" width="27" height="27"/>
         <image name="crossIcon" width="25" height="25"/>
         <image name="favouriteIcon" width="29" height="24"/>
         <image name="settings" width="25" height="25"/>
+        <image name="starIcon" width="33" height="32"/>
         <image name="translateIcon" width="29" height="24"/>
     </resources>
 </document>

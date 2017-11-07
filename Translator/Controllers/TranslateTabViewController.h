@@ -3,6 +3,7 @@
 @interface TranslateTabViewController : UIViewController <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *inputView;
+@property (weak, nonatomic) IBOutlet UIView *outputView;
 @property (weak, nonatomic) IBOutlet UITextView *inputTextView;
 @property (weak, nonatomic) IBOutlet UIButton *clearTextViewButton;
 

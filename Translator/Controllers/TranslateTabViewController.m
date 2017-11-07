@@ -14,6 +14,7 @@
     [super viewDidLoad];
     
     self.inputView.layer.cornerRadius = 3;
+    self.outputView.layer.cornerRadius = 3;
     
     // placeholder for inputTextView
     CGFloat alpha = 1.0;
