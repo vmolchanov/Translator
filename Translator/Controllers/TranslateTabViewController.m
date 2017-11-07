@@ -15,7 +15,7 @@
     
     self.inputView.layer.cornerRadius = 3;
     
-    // placeholder for inputView
+    // placeholder for inputTextView
     CGFloat alpha = 1.0;
     CGFloat red, green, blue;
     red = green = blue = 153.0 / 255;
@@ -43,7 +43,8 @@
 
 
 - (IBAction)clearTextViewAction:(id)sender {
-    
+    [self textView:self.inputTextView setText:self.placeholderText color:self.placeholderColor];
+    [sender setHidden:YES];
 }
 
 
