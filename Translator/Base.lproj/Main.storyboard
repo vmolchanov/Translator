@@ -103,6 +103,13 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="copyIcon"/>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FfL-zF-1n5">
+                                        <rect key="frame" x="23" y="27" width="277" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -113,9 +120,12 @@
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="addToClipboardButton" destination="sH5-Tf-2KS" id="fNL-eo-IT2"/>
+                        <outlet property="addToFavouriteButton" destination="BED-ya-n8E" id="7ub-aM-TWx"/>
                         <outlet property="clearTextViewButton" destination="02P-aX-CVr" id="4iH-08-ZhO"/>
                         <outlet property="inputTextView" destination="kOq-Vk-2iK" id="eQl-SQ-gK2"/>
                         <outlet property="inputView" destination="7hk-78-HpW" id="PJG-Tu-I94"/>
+                        <outlet property="outputLabel" destination="FfL-zF-1n5" id="45z-qv-Q7m"/>
                         <outlet property="outputView" destination="RhJ-Kb-ZvP" id="Zwr-ZF-8Zs"/>
                     </connections>
                 </viewController>

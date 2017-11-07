@@ -13,6 +13,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // set corner radius
     self.inputView.layer.cornerRadius = 3;
     self.outputView.layer.cornerRadius = 3;
     
@@ -22,6 +23,10 @@
     red = green = blue = 153.0 / 255;
     self.placeholderColor = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
     self.placeholderText = @"Введите текст...";
+    
+    // output label
+    [self setOutputLabelWithText:@"" favouriteButtonAsHidden:YES clipboardButtonAsHidden:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,6 +45,24 @@
 */
 
 
+#pragma mark - Static methods
+
+
++ (CGFloat)label:(UILabel *)label heightForText:(NSString *)text {
+    
+    UIFont *font = [UIFont systemFontOfSize:17.0f];
+    
+    NSDictionary *attributes = @{NSFontAttributeName: font};
+    
+    CGRect rect = [text boundingRectWithSize:CGSizeMake(label.frame.size.width, CGFLOAT_MAX)
+                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                  attributes:attributes
+                                     context:nil];
+    
+    return CGRectGetHeight(rect);
+}
+
+
 #pragma mark - Actions
 
 
@@ -53,7 +76,7 @@
 
 
 - (void)textViewDidChange:(UITextView *)textView {
-    if ([textView.textColor isEqualToColor:self.placeholderColor]) {
+    if ([self textViewHavePlaceholder:textView]) {
         if ([textView.text length] > [self.placeholderText length]) {
             unichar inputedCharacter =  [textView.text characterAtIndex:[textView.text length] - 1];
             
@@ -62,6 +85,9 @@
                      color:[UIColor blackColor]];
             
             [self.clearTextViewButton setHidden:NO];
+            
+            // server request
+            [self setOutputLabelWithText:textView.text favouriteButtonAsHidden:NO clipboardButtonAsHidden:NO];
         } else {
             [self textView:textView setText:self.placeholderText color:self.placeholderColor];
         }
@@ -70,6 +96,10 @@
     if ([textView.text length] == 0) {
         [self textView:textView setText:self.placeholderText color:self.placeholderColor];
         [self.clearTextViewButton setHidden:YES];
+        [self setOutputLabelWithText:@"" favouriteButtonAsHidden:YES clipboardButtonAsHidden:YES];
+    } else {
+        // server request
+        [self setOutputLabelWithText:textView.text favouriteButtonAsHidden:NO clipboardButtonAsHidden:NO];
     }
 }
 
@@ -80,6 +110,28 @@
 - (void)textView:(UITextView *)textView setText:(NSString *)text color:(UIColor *)color {
     textView.text = text;
     textView.textColor = color;
+}
+
+
+- (BOOL)textViewHavePlaceholder:(UITextView *)textView {
+    return [self.inputTextView.textColor isEqualToColor:self.placeholderColor];
+}
+
+
+- (void)setOutputLabelWithText:(NSString *)text
+       favouriteButtonAsHidden:(BOOL)fbhide
+       clipboardButtonAsHidden:(BOOL)cbhide {
+    
+    CGFloat labelHeight = [TranslateTabViewController label:self.outputLabel heightForText:text];
+    
+    CGRect labelFrame = self.outputLabel.frame;
+    labelFrame.size.height = labelHeight;
+    
+    self.outputLabel.frame = labelFrame;
+    self.outputLabel.text = text;
+    
+    [self.addToFavouriteButton setHidden:fbhide];
+    [self.addToClipboardButton setHidden:cbhide];
 }
 
 @end
