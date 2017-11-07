@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="7EA-1n-73q">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="5QW-Ih-olo">
+            <objects>
+                <viewController id="bc9-jh-X6W" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eKy-EU-maM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="favouriteIcon" selectedImage="favouriteIcon" id="T9s-ki-bs8">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Wd-0v-tR4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-403" y="-720"/>
+        </scene>
+        <!--Translate Tab View Controller-->
+        <scene sceneID="AQX-9f-rUv">
+            <objects>
+                <viewController id="Ivu-ri-lPi" customClass="TranslateTabViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ifm-tz-nvx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" id="dz1-5x-HlP" userLabel="LanguagesBar">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5b2-MW-Kp6">
+                                        <rect key="frame" x="173" y="29" width="29" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="changeLanguageIcon">
+                                            <color key="titleColor" red="0.79282705492938954" green="1" blue="0.26621727218341007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Fon-hd-P9l" userLabel="FirstLanguage">
+                                        <rect key="frame" x="8" y="25" width="147" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <state key="normal" title="Английский">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aEv-UK-NMs" userLabel="SecondLanguage">
+                                        <rect key="frame" x="220" y="25" width="147" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <state key="normal" title="Русский">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.61568627450980395" green="0.13725490196078433" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" misplaced="YES" id="7hk-78-HpW" userLabel="Input" customClass="InputFieldView">
+                                <rect key="frame" x="5" y="65" width="365" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="02P-aX-CVr">
+                                        <rect key="frame" x="324" y="16" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="crossIcon"/>
+                                        <connections>
+                                            <action selector="clearTextViewAction:" destination="Ivu-ri-lPi" eventType="touchUpInside" id="QnI-4j-85z"/>
+                                        </connections>
+                                    </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" text="Введите текст..." textAlignment="natural" id="kOq-Vk-2iK">
+                                        <rect key="frame" x="16" y="16" width="292" height="168"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Ivu-ri-lPi" id="aQe-te-QIX"/>
+                                        </connections>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.61568627450980395" green="0.13725490196078433" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="translateIcon" selectedImage="translateIcon" id="T9O-aL-8mT">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="clearTextViewButton" destination="02P-aX-CVr" id="4iH-08-ZhO"/>
+                        <outlet property="inputTextView" destination="kOq-Vk-2iK" id="eQl-SQ-gK2"/>
+                        <outlet property="inputView" destination="7hk-78-HpW" id="PJG-Tu-I94"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YDJ-SU-Kdc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-956.5" y="-1273.5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="9BN-6a-ypH">
+            <objects>
+                <viewController id="2HO-QG-JdZ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nJl-dc-Keh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="settings" selectedImage="settings" id="BNI-Ty-Voo">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LNU-8A-zck" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-957" y="-142"/>
+        </scene>
+        <!--Tab Bar View Controller-->
+        <scene sceneID="tpd-6V-Ebw">
+            <objects>
+                <tabBarController id="7EA-1n-73q" customClass="TabBarViewController" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nFr-1B-xiq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Ivu-ri-lPi" kind="relationship" relationship="viewControllers" id="ugg-nd-Yyl"/>
+                        <segue destination="bc9-jh-X6W" kind="relationship" relationship="viewControllers" id="a3m-m2-djR"/>
+                        <segue destination="2HO-QG-JdZ" kind="relationship" relationship="viewControllers" id="Eyx-QQ-iwi"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hwR-Zd-Cq1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1550" y="-719"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="changeLanguageIcon" width="29" height="21"/>
+        <image name="crossIcon" width="25" height="25"/>
+        <image name="favouriteIcon" width="29" height="24"/>
+        <image name="settings" width="25" height="25"/>
+        <image name="translateIcon" width="29" height="24"/>
+    </resources>
+</document>
