@@ -69,6 +69,7 @@
 - (IBAction)clearTextViewAction:(id)sender {
     [self textView:self.inputTextView setText:self.placeholderText color:self.placeholderColor];
     [sender setHidden:YES];
+    [self setOutputLabelWithText:@"" favouriteButtonAsHidden:YES clipboardButtonAsHidden:YES];
 }
 
 
