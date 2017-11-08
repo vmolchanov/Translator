@@ -12,6 +12,7 @@
 		BCA9B1741FB11BFE00CA2F5A /* TranslateTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA9B1731FB11BFE00CA2F5A /* TranslateTabViewController.m */; };
 		BCA9B17C1FB1D01500CA2F5A /* UIColor+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA9B17B1FB1D01500CA2F5A /* UIColor+Compare.m */; };
 		BCA9B17F1FB2599B00CA2F5A /* LanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA9B17E1FB2599B00CA2F5A /* LanguagesViewController.m */; };
+		BCA9B1831FB3167100CA2F5A /* TranslatorAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA9B1821FB3167100CA2F5A /* TranslatorAPI.m */; };
 		BCE11FC21FAA0280007232E6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE11FC11FAA0280007232E6 /* AppDelegate.m */; };
 		BCE11FC81FAA0280007232E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCE11FC61FAA0280007232E6 /* Main.storyboard */; };
 		BCE11FCB1FAA0280007232E6 /* Translator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BCE11FC91FAA0280007232E6 /* Translator.xcdatamodeld */; };
@@ -29,6 +30,8 @@
 		BCA9B17B1FB1D01500CA2F5A /* UIColor+Compare.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Compare.m"; sourceTree = "<group>"; };
 		BCA9B17D1FB2599B00CA2F5A /* LanguagesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LanguagesViewController.h; sourceTree = "<group>"; };
 		BCA9B17E1FB2599B00CA2F5A /* LanguagesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LanguagesViewController.m; sourceTree = "<group>"; };
+		BCA9B1811FB3167100CA2F5A /* TranslatorAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TranslatorAPI.h; sourceTree = "<group>"; };
+		BCA9B1821FB3167100CA2F5A /* TranslatorAPI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TranslatorAPI.m; sourceTree = "<group>"; };
 		BCE11FBD1FAA0280007232E6 /* Translator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Translator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCE11FC01FAA0280007232E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BCE11FC11FAA0280007232E6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -72,6 +75,15 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		BCA9B1801FB3164B00CA2F5A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BCA9B1811FB3167100CA2F5A /* TranslatorAPI.h */,
+				BCA9B1821FB3167100CA2F5A /* TranslatorAPI.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		BCE11FB41FAA0280007232E6 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +103,7 @@
 		BCE11FBF1FAA0280007232E6 /* Translator */ = {
 			isa = PBXGroup;
 			children = (
+				BCA9B1801FB3164B00CA2F5A /* Models */,
 				BCA9B1791FB1CDFC00CA2F5A /* Categories */,
 				BCA9B1711FB11BCB00CA2F5A /* Controllers */,
 				BCE11FC01FAA0280007232E6 /* AppDelegate.h */,
@@ -137,6 +150,11 @@
 					BCE11FBC1FAA0280007232E6 = {
 						CreatedOnToolsVersion = 9.0.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -182,6 +200,7 @@
 				BCE11FCB1FAA0280007232E6 /* Translator.xcdatamodeld in Sources */,
 				BCA9B1741FB11BFE00CA2F5A /* TranslateTabViewController.m in Sources */,
 				BCE11FD31FAA0280007232E6 /* main.m in Sources */,
+				BCA9B1831FB3167100CA2F5A /* TranslatorAPI.m in Sources */,
 				BCE11FC21FAA0280007232E6 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

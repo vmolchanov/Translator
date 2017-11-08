@@ -1,4 +1,5 @@
 #import "LanguagesViewController.h"
+#import "../Models/TranslatorAPI.h"
 
 @interface LanguagesViewController ()
 
@@ -9,11 +10,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(languagesLoadedNotification:)
+                                                 name:TranslatorAPIAvailableLanguagesDidLoadNotification
+                                               object:nil];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    TranslatorAPI *translatorAPI = [TranslatorAPI api];
+    [translatorAPI availableLanguages];
+}
+
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -40,21 +48,53 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return [self.languages count];
 }
 
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-  
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+    static NSString *identifier = @"Cell";
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%ld", indexPath.row];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+    }
     
-    // Configure the cell...
+    NSDictionary *lang = [self.languages objectAtIndex:indexPath.row];
+    NSString *langAbbr = [[lang allKeys] objectAtIndex:0];
+    
+        
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", [lang objectForKey:langAbbr]];
+    
     
     return cell;
+}
+
+
+#pragma mark - Notifications
+
+
+- (void)languagesLoadedNotification:(NSNotification *)notification {
+    NSDictionary *userInfo = [notification.userInfo objectForKey:TranslatorAPIAvailableLanguagesUserInfoKey];
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for (NSString *langAbbr in userInfo) {
+        NSDictionary *lang = @{langAbbr: [userInfo objectForKey:langAbbr]};
+        [tempArray addObject:lang];
+    }
+    
+    self.languages = [tempArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSString *firstLangAbbr = [[obj1 allKeys] objectAtIndex:0];
+        NSString *secondLangAbbr = [[obj2 allKeys] objectAtIndex:0];
+        
+        return [[obj1 objectForKey:firstLangAbbr] compare:[obj2 objectForKey:secondLangAbbr]];
+    }];
+    
+    __weak LanguagesViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.tableView reloadData];
+    });
 }
 
 
