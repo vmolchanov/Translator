@@ -20,29 +20,31 @@ NSString* const TranslatorAPIAvailableLanguagesUserInfoKey = @"TranslatorAPIAvai
     request.HTTPMethod = @"GET";
     request.timeoutInterval = 10;
     
+    void (^completionHandler)(NSData*, NSURLResponse*, NSError*) = ^(NSData * _Nullable data,
+                                                                     NSURLResponse * _Nullable response,
+                                                                     NSError * _Nullable error) {
+        
+        if (error) {
+            // processing error
+        }
+        
+        id json = [NSJSONSerialization JSONObjectWithData:data
+                                                  options:NSJSONReadingMutableContainers
+                                                    error:nil];
+        // notification
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[json objectForKey:@"langs"]
+                                                             forKey:TranslatorAPIAvailableLanguagesUserInfoKey];
+        
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        
+        [nc postNotificationName:TranslatorAPIAvailableLanguagesDidLoadNotification
+                          object:nil
+                        userInfo:userInfo];
+    };
+    
+    
     self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    
-    self.dataTask = [self.session dataTaskWithRequest:request
-                                    completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                                        
-                                        if (error) {
-                                            // processing error
-                                        }
-                                        
-                                        id json = [NSJSONSerialization JSONObjectWithData:data
-                                                                                  options:NSJSONReadingMutableContainers
-                                                                                    error:nil];
-                                        // notification
-                                        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[json objectForKey:@"langs"]
-                                                                                             forKey:TranslatorAPIAvailableLanguagesUserInfoKey];
-                                        
-                                        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-                                        
-                                        [nc postNotificationName:TranslatorAPIAvailableLanguagesDidLoadNotification
-                                                          object:nil
-                                                        userInfo:userInfo];
-                                    }];
-    
+    self.dataTask = [self.session dataTaskWithRequest:request completionHandler:completionHandler];
     [self.dataTask resume];
 }
 
