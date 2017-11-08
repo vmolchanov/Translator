@@ -27,6 +27,7 @@
     // output label
     [self setOutputLabelWithText:@"" favouriteButtonAsHidden:YES clipboardButtonAsHidden:YES];
     
+    
 }
 
 
@@ -34,17 +35,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 #pragma mark - Static methods
@@ -81,28 +71,25 @@
 - (void)textViewDidChange:(UITextView *)textView {
     if ([self textViewHavePlaceholder:textView]) {
         if ([textView.text length] > [self.placeholderText length]) {
-            unichar inputedCharacter =  [textView.text characterAtIndex:[textView.text length] - 1];
-            
             [self textView:textView
-                   setText:[NSString stringWithFormat:@"%c", inputedCharacter]
+                   setText:[textView.text substringFromIndex:[textView.text length] - 1]
                      color:[UIColor blackColor]];
-            
+
             [self.clearTextViewButton setHidden:NO];
-            
+
             // server request
             [self setOutputLabelWithText:textView.text favouriteButtonAsHidden:NO clipboardButtonAsHidden:NO];
         } else {
             [self textView:textView setText:self.placeholderText color:self.placeholderColor];
         }
+    } else if ([textView.text length] != 0) {
+        [self setOutputLabelWithText:textView.text favouriteButtonAsHidden:NO clipboardButtonAsHidden:NO];
     }
-    
+
     if ([textView.text length] == 0) {
         [self textView:textView setText:self.placeholderText color:self.placeholderColor];
         [self.clearTextViewButton setHidden:YES];
         [self setOutputLabelWithText:@"" favouriteButtonAsHidden:YES clipboardButtonAsHidden:YES];
-    } else {
-        // server request
-        [self setOutputLabelWithText:textView.text favouriteButtonAsHidden:NO clipboardButtonAsHidden:NO];
     }
 }
 

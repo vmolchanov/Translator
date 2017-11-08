@@ -103,9 +103,9 @@
 		BCE11FBF1FAA0280007232E6 /* Translator */ = {
 			isa = PBXGroup;
 			children = (
-				BCA9B1801FB3164B00CA2F5A /* Models */,
 				BCA9B1791FB1CDFC00CA2F5A /* Categories */,
 				BCA9B1711FB11BCB00CA2F5A /* Controllers */,
+				BCA9B1801FB3164B00CA2F5A /* Models */,
 				BCE11FC01FAA0280007232E6 /* AppDelegate.h */,
 				BCE11FC11FAA0280007232E6 /* AppDelegate.m */,
 				BCE11FC61FAA0280007232E6 /* Main.storyboard */,

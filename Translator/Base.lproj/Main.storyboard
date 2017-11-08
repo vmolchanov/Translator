@@ -99,7 +99,7 @@
                                 <rect key="frame" x="5" y="270" width="365" height="343"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BED-ya-n8E" userLabel="Favourite">
+                                    <button contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BED-ya-n8E" userLabel="Favourite">
                                         <rect key="frame" x="316" y="16" width="33" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="starIcon"/>
@@ -126,6 +126,8 @@
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="addToClipboardButton" destination="sH5-Tf-2KS" id="SGG-hT-ToK"/>
+                        <outlet property="addToFavouriteButton" destination="BED-ya-n8E" id="gpV-NM-2dB"/>
                         <outlet property="clearTextViewButton" destination="02P-aX-CVr" id="4iH-08-ZhO"/>
                         <outlet property="inputTextView" destination="kOq-Vk-2iK" id="eQl-SQ-gK2"/>
                         <outlet property="inputView" destination="7hk-78-HpW" id="PJG-Tu-I94"/>
