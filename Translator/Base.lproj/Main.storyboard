@@ -99,6 +99,22 @@
                                 <rect key="frame" x="5" y="270" width="365" height="343"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <scrollView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" id="jQT-a5-AhQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="296" height="343"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FfL-zF-1n5">
+                                                <rect key="frame" x="23" y="27" width="277" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <connections>
+                                            <outlet property="delegate" destination="Ivu-ri-lPi" id="hSC-zd-7mz"/>
+                                        </connections>
+                                    </scrollView>
                                     <button contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BED-ya-n8E" userLabel="Favourite">
                                         <rect key="frame" x="316" y="16" width="33" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -109,13 +125,6 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="copyIcon"/>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FfL-zF-1n5">
-                                        <rect key="frame" x="23" y="27" width="277" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -134,6 +143,7 @@
                         <outlet property="languagesBar" destination="dz1-5x-HlP" id="AsW-yp-mfm"/>
                         <outlet property="outputLabel" destination="FfL-zF-1n5" id="45z-qv-Q7m"/>
                         <outlet property="outputView" destination="RhJ-Kb-ZvP" id="Zwr-ZF-8Zs"/>
+                        <outlet property="scrollView" destination="jQT-a5-AhQ" id="ffz-Vj-pxb"/>
                         <outlet property="swapLanguagesButton" destination="5b2-MW-Kp6" id="3BL-8G-mG5"/>
                     </connections>
                 </viewController>

@@ -165,6 +165,8 @@
     
     [self.addToFavouriteButton setHidden:fbhide];
     [self.addToClipboardButton setHidden:cbhide];
+    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, labelHeight);
 }
 
 
@@ -232,6 +234,17 @@
     outputLabelFrame.origin.x = outputLabelLeftOffset;
     outputLabelFrame.origin.y = outputLabelTopOffset;
     self.outputLabel.frame = outputLabelFrame;
+    
+    // scrollView
+    CGRect scrollViewBounds = self.scrollView.bounds;
+    scrollViewBounds.size.height = viewHeight;
+    scrollViewBounds.size.width = self.outputLabel.bounds.size.width + outputLabelLeftOffset;
+    self.scrollView.bounds = scrollViewBounds;
+    
+    CGRect scrollViewFrame = self.scrollView.frame;
+    scrollViewFrame.origin.x = 0;
+    scrollViewFrame.origin.y = 0;
+    self.scrollView.frame = scrollViewFrame;
     
     // addToFavouriteButton
     CGRect addToFavouriteButtonFrame = self.addToFavouriteButton.frame;

@@ -11,6 +11,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addToClipboardButton;
 @property (weak, nonatomic) IBOutlet UIView *languagesBar;
 @property (weak, nonatomic) IBOutlet UIButton *swapLanguagesButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 + (CGFloat)label:(UILabel *)label heightForText:(NSString *)text;
 
