@@ -176,33 +176,32 @@
     const CGFloat outputLabelLeftOffset = 23.0f;
     const CGFloat outputLabelTopOffset = 23.0f;
     const CGFloat addToFavouriteButtonBottomOffset = 20.0f;
-    const CGFloat langBarHeight = CGRectGetHeight(self.languagesBar.frame);
+    const CGFloat tabBarHeight = 32.0f;
     
-    // inputView and outputView
-    CGFloat viewHeight = size.height - langBarHeight - viewOffset - self.tabBarController.tabBar.frame.size.height;
+    CGFloat langBarHeight = CGRectGetHeight(self.languagesBar.frame);
+    CGFloat viewHeight = size.height - langBarHeight - 2 * viewOffset - tabBarHeight;
     CGFloat viewWidth = (size.width - 3 * viewOffset) / 2;
     
-    CGFloat inputViewX = 5;
-    CGFloat inputViewY = langBarHeight + viewOffset;
-    CGFloat outputViewX = viewWidth + 2 * viewOffset;
-    CGFloat outputViewY = langBarHeight + viewOffset;
-    
+    // inputView
     CGRect inputViewBounds = self.inputView.bounds;
-    CGRect outputViewBounds = self.outputView.bounds;
     inputViewBounds.size.width = viewWidth;
     inputViewBounds.size.height = viewHeight;
-    outputViewBounds.size.width = viewWidth;
-    outputViewBounds.size.height = viewHeight;
     self.inputView.bounds = inputViewBounds;
-    self.outputView.bounds = outputViewBounds;
     
     CGRect inputViewFrame = self.inputView.frame;
-    CGRect outputViewFrame = self.outputView.frame;
-    inputViewFrame.origin.x = inputViewX;
-    inputViewFrame.origin.y = inputViewY;
-    outputViewFrame.origin.x = outputViewX;
-    outputViewFrame.origin.y = outputViewY;
+    inputViewFrame.origin.x = 5;
+    inputViewFrame.origin.y = langBarHeight + viewOffset;
     self.inputView.frame = inputViewFrame;
+    
+    // outputView
+    CGRect outputViewBounds = self.outputView.bounds;
+    outputViewBounds.size.width = viewWidth;
+    outputViewBounds.size.height = viewHeight;
+    self.outputView.bounds = outputViewBounds;
+    
+    CGRect outputViewFrame = self.outputView.frame;
+    outputViewFrame.origin.x = viewWidth + 2 * viewOffset;
+    outputViewFrame.origin.y = langBarHeight + viewOffset;
     self.outputView.frame = outputViewFrame;
     
     // inputTextView
@@ -267,7 +266,97 @@
 
 
 - (void)applyVerticalOrientationWithScreenSize:(CGSize)size {
+    const CGFloat viewOffset = 5.0f;
+    const CGFloat innerOffset = 16.0f;
+    const CGFloat inputViewHeight = 200.0f;
+    const CGFloat outputLabelLeftOffset = 23.0f;
+    const CGFloat outputLabelTopOffset = 23.0f;
+    const CGFloat addToFavouriteButtonBottomOffset = 20.0f;
+    const CGFloat tabBarHeight = 49.0f;
     
+    CGFloat viewWidth = size.width - 2 * viewOffset;
+    CGFloat langBarHeight = CGRectGetHeight(self.languagesBar.frame);
+    
+    // inputView
+    CGRect inputViewBounds = self.inputView.bounds;
+    inputViewBounds.size.width = viewWidth;
+    inputViewBounds.size.height = inputViewHeight;
+    self.inputView.bounds = inputViewBounds;
+    
+    CGRect inputViewFrame = self.inputView.frame;
+    inputViewFrame.origin.x = viewOffset;
+    inputViewFrame.origin.y = langBarHeight + viewOffset;
+    self.inputView.frame = inputViewFrame;
+    
+    // outputView
+    CGRect outputViewBounds = self.outputView.bounds;
+    outputViewBounds.size.width = viewWidth;
+    outputViewBounds.size.height = size.height - langBarHeight - inputViewHeight - 3 * viewOffset - tabBarHeight;
+    self.outputView.bounds = outputViewBounds;
+    
+    CGRect outputViewFrame = self.outputView.frame;
+    outputViewFrame.origin.x = viewOffset;
+    outputViewFrame.origin.y = langBarHeight + 2 * viewOffset + self.inputView.bounds.size.height;
+    self.outputView.frame = outputViewFrame;
+    
+    // inputTextView
+    CGFloat inputTextViewHeight = inputViewHeight - 2 * innerOffset;
+    CGFloat inputTextViewWidth = viewWidth - 3 * innerOffset - self.clearTextViewButton.bounds.size.width;
+    
+    CGRect inputTextViewBounds = self.inputTextView.bounds;
+    inputTextViewBounds.size.width = inputTextViewWidth;
+    inputTextViewBounds.size.height = inputTextViewHeight;
+    self.inputTextView.bounds = inputTextViewBounds;
+    
+    CGRect inputTextViewFrame = self.inputTextView.frame;
+    inputTextViewFrame.origin.x = innerOffset;
+    inputTextViewFrame.origin.y = innerOffset;
+    self.inputTextView.frame = inputTextViewFrame;
+    
+    // clearTextViewButton
+    CGRect clearTextViewButtonFrame = self.clearTextViewButton.frame;
+    clearTextViewButtonFrame.origin.x = 2 * innerOffset + inputTextViewWidth;
+    clearTextViewButtonFrame.origin.y = innerOffset;
+    self.clearTextViewButton.frame = clearTextViewButtonFrame;
+    
+    // outputLabel
+    CGRect outputLabelBounds = self.outputLabel.bounds;
+    outputLabelBounds.size.width = viewWidth - self.addToFavouriteButton.bounds.size.width - 2 * innerOffset - outputLabelLeftOffset;
+    self.outputLabel.bounds = outputLabelBounds;
+    
+    CGRect outputLabelFrame = self.outputLabel.frame;
+    outputLabelFrame.origin.x = outputLabelLeftOffset;
+    outputLabelFrame.origin.y = outputLabelTopOffset;
+    self.outputLabel.frame = outputLabelFrame;
+    
+    // scrollView
+    CGRect scrollViewBounds = self.scrollView.bounds;
+    scrollViewBounds.size.height = self.outputView.bounds.size.height;
+    scrollViewBounds.size.width = self.outputLabel.bounds.size.width + outputLabelLeftOffset;
+    self.scrollView.bounds = scrollViewBounds;
+    
+    CGRect scrollViewFrame = self.scrollView.frame;
+    scrollViewFrame.origin.x = 0;
+    scrollViewFrame.origin.y = 0;
+    self.scrollView.frame = scrollViewFrame;
+    
+    // addToFavouriteButton
+    CGRect addToFavouriteButtonFrame = self.addToFavouriteButton.frame;
+    addToFavouriteButtonFrame.origin.x = outputLabelLeftOffset + self.outputLabel.bounds.size.width + innerOffset;
+    addToFavouriteButtonFrame.origin.y = innerOffset;
+    self.addToFavouriteButton.frame = addToFavouriteButtonFrame;
+    
+    // addToClipboardButton
+    CGFloat favouriteAndClipboardIconDelta = self.addToFavouriteButton.frame.size.width - self.addToClipboardButton.frame.size.width;
+    CGRect addToClipboardButtonFrame = self.addToClipboardButton.frame;
+    addToClipboardButtonFrame.origin.x = outputLabelLeftOffset + self.outputLabel.bounds.size.width + innerOffset + favouriteAndClipboardIconDelta / 2;
+    addToFavouriteButtonFrame.origin.y = innerOffset + self.addToFavouriteButton.bounds.size.height + addToFavouriteButtonBottomOffset;
+    self.addToClipboardButton.frame = addToClipboardButtonFrame;
+    
+    // languagesBar
+    CGRect languagesBarFrame = self.languagesBar.frame;
+    languagesBarFrame.size.width = size.width;
+    self.languagesBar.frame = languagesBarFrame;
 }
 
 @end
