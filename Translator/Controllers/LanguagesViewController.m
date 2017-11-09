@@ -1,5 +1,11 @@
 #import "LanguagesViewController.h"
 #import "../Models/TranslatorAPI.h"
+#import "TranslateTabViewController.h"
+
+
+NSString* const LanguagesViewControllerCellDidSelectNotification = @"LanguagesViewControllerCellDidSelectNotification";
+NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesViewControllerChosenLanguageUserInfoKey";
+
 
 @interface LanguagesViewController ()
 
@@ -35,7 +41,7 @@
 
 
 - (IBAction)closeModalAction:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self closeModal];
 }
 
 
@@ -50,7 +56,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.languages count];
 }
-
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -69,6 +74,45 @@
     
     
     return cell;
+}
+
+
+#pragma mark - UITableViewDelegate
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *selectedCellText = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    
+    NSDictionary *selectedLang;
+    
+    for (NSDictionary *lang in self.languages) {
+        NSString *key = [[lang allKeys] objectAtIndex:0];
+        NSString *abbr = [lang objectForKey:key];
+        
+        if ([abbr isEqualToString:selectedCellText]) {
+            selectedLang = lang;
+            break;
+        }
+    }
+    
+    
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:selectedLang
+                                                         forKey:LanguagesViewControllerChosenLanguageUserInfoKey];
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc postNotificationName:LanguagesViewControllerCellDidSelectNotification
+                      object:nil
+                    userInfo:userInfo];
+    
+    [self closeModal];
+}
+
+
+#pragma mark - UISearchBarDelegate
+
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
 }
 
 
@@ -98,49 +142,12 @@
 }
 
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+#pragma mark - Private methods
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (void)closeModal {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 @end

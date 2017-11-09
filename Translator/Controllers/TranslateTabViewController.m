@@ -1,10 +1,13 @@
 #import "TranslateTabViewController.h"
 #import "UIColor+Compare.h"
+#import "LanguagesViewController.h"
 
 @interface TranslateTabViewController ()
 
 @property (strong, nonatomic) NSString *placeholderText;
 @property (strong, nonatomic) UIColor  *placeholderColor;
+
+@property (strong, nonatomic) UIButton *clickedButton;
 
 @end
 
@@ -37,6 +40,11 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
 #pragma mark - Static methods
 
 
@@ -65,6 +73,31 @@
 }
 
 
+#pragma mark - Segue
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    self.clickedButton = sender;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setNewLanguageNotification:)
+                                                 name:LanguagesViewControllerCellDidSelectNotification
+                                               object:nil];
+    
+}
+
+
+#pragma mark - Notification
+
+
+- (void)setNewLanguageNotification:(NSNotification *)notification {
+    NSDictionary *userInfo = [notification.userInfo objectForKey:LanguagesViewControllerChosenLanguageUserInfoKey];
+    NSDictionary *abbr = [[userInfo allKeys] objectAtIndex:0];
+    
+    self.clickedButton.titleLabel.text = [userInfo objectForKey:abbr];
+}
+
+
 #pragma mark - UITextViewDelegate
 
 
@@ -83,6 +116,7 @@
             [self textView:textView setText:self.placeholderText color:self.placeholderColor];
         }
     } else if ([textView.text length] != 0) {
+        // server request
         [self setOutputLabelWithText:textView.text favouriteButtonAsHidden:NO clipboardButtonAsHidden:NO];
     }
 

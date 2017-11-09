@@ -1,6 +1,12 @@
 #import <UIKit/UIKit.h>
 
-@interface LanguagesViewController : UIViewController
+
+extern NSString* const LanguagesViewControllerCellDidSelectNotification;
+
+extern NSString* const LanguagesViewControllerChosenLanguageUserInfoKey;
+
+
+@interface LanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) NSArray *languages;
 
