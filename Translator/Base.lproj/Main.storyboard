@@ -144,7 +144,9 @@
                         <outlet property="outputLabel" destination="FfL-zF-1n5" id="45z-qv-Q7m"/>
                         <outlet property="outputView" destination="RhJ-Kb-ZvP" id="Zwr-ZF-8Zs"/>
                         <outlet property="scrollView" destination="jQT-a5-AhQ" id="ffz-Vj-pxb"/>
+                        <outlet property="sourceLanguageButton" destination="Fon-hd-P9l" id="5BI-wg-9I2"/>
                         <outlet property="swapLanguagesButton" destination="5b2-MW-Kp6" id="3BL-8G-mG5"/>
+                        <outlet property="translationLanguageButton" destination="aEv-UK-NMs" id="D64-fy-Q3g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YDJ-SU-Kdc" userLabel="First Responder" sceneMemberID="firstResponder"/>

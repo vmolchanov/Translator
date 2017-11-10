@@ -232,7 +232,21 @@
     NSDictionary *userInfo = [notification.userInfo objectForKey:LanguagesViewControllerChosenLanguageUserInfoKey];
     NSDictionary *abbr = [[userInfo allKeys] objectAtIndex:0];
     
-    [self.clickedButton setTitle:[userInfo objectForKey:abbr] forState:UIControlStateNormal];
+    UIButton *unclickedButton;
+    
+    if ([self.clickedButton isEqual:self.sourceLanguageButton]) {
+        unclickedButton = self.translationLanguageButton;
+    } else {
+        unclickedButton = self.sourceLanguageButton;
+    }
+    
+    if ([[userInfo objectForKey:abbr] isEqualToString:unclickedButton.titleLabel.text]) {
+        NSString *temp = self.clickedButton.titleLabel.text;
+        [self.clickedButton setTitle:unclickedButton.titleLabel.text forState:UIControlStateNormal];
+        [unclickedButton setTitle:temp forState:UIControlStateNormal];
+    } else {
+        [self.clickedButton setTitle:[userInfo objectForKey:abbr] forState:UIControlStateNormal];
+    }
 }
 
 

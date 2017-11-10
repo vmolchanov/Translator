@@ -12,6 +12,8 @@
 @property (weak, nonatomic) IBOutlet UIView *languagesBar;
 @property (weak, nonatomic) IBOutlet UIButton *swapLanguagesButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIButton *sourceLanguageButton;
+@property (weak, nonatomic) IBOutlet UIButton *translationLanguageButton;
 
 + (CGFloat)label:(UILabel *)label heightForText:(NSString *)text;
 
