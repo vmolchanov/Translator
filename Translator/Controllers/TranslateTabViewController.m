@@ -6,7 +6,6 @@
 
 @property (strong, nonatomic) NSString *placeholderText;
 @property (strong, nonatomic) UIColor  *placeholderColor;
-
 @property (strong, nonatomic) UIButton *clickedButton;
 
 @end
@@ -211,6 +210,11 @@
 }
 
 
+- (IBAction)swapLanguagesAction:(id)sender {
+    [self swapLanguages];
+}
+
+
 #pragma mark - Segue
 
 
@@ -241,9 +245,7 @@
     }
     
     if ([[userInfo objectForKey:abbr] isEqualToString:unclickedButton.titleLabel.text]) {
-        NSString *temp = self.clickedButton.titleLabel.text;
-        [self.clickedButton setTitle:unclickedButton.titleLabel.text forState:UIControlStateNormal];
-        [unclickedButton setTitle:temp forState:UIControlStateNormal];
+        [self swapLanguages];
     } else {
         [self.clickedButton setTitle:[userInfo objectForKey:abbr] forState:UIControlStateNormal];
     }
@@ -323,6 +325,13 @@
     inputViewFrame.origin.x = x;
     inputViewFrame.origin.y = y;
     view.frame = inputViewFrame;
+}
+
+
+- (void)swapLanguages {
+    NSString *temp = self.sourceLanguageButton.titleLabel.text;
+    [self.sourceLanguageButton setTitle:self.translationLanguageButton.titleLabel.text forState:UIControlStateNormal];
+    [self.translationLanguageButton setTitle:temp forState:UIControlStateNormal];
 }
 
 @end
