@@ -39,6 +39,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -231,7 +232,7 @@
     NSDictionary *userInfo = [notification.userInfo objectForKey:LanguagesViewControllerChosenLanguageUserInfoKey];
     NSDictionary *abbr = [[userInfo allKeys] objectAtIndex:0];
     
-    self.clickedButton.titleLabel.text = [userInfo objectForKey:abbr];
+    [self.clickedButton setTitle:[userInfo objectForKey:abbr] forState:UIControlStateNormal];
 }
 
 
