@@ -40,6 +40,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self viewWillTransitionToSize:[[UIScreen mainScreen] bounds].size withTransitionCoordinator:nil];
 }
 
 
