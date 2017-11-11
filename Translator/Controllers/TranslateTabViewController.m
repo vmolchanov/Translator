@@ -28,6 +28,11 @@
     
     // output label
     [self setOutputLabelWithText:@"" favouriteButtonAsHidden:YES clipboardButtonAsHidden:YES];
+    
+    // hide keyboard
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditingAction)];
+    [self.inputView addGestureRecognizer:gr];
+    [self.outputView addGestureRecognizer:gr];
 }
 
 
@@ -213,6 +218,12 @@
 
 - (IBAction)swapLanguagesAction:(id)sender {
     [self swapLanguages];
+}
+
+
+- (void)endEditingAction {
+    [self.inputView endEditing:YES];
+    [self.outputView endEditing:YES];
 }
 
 
