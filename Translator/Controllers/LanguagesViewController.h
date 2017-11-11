@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import "CommonViewController.h"
 
 
 extern NSString* const LanguagesViewControllerCellDidSelectNotification;
@@ -6,11 +7,12 @@ extern NSString* const LanguagesViewControllerCellDidSelectNotification;
 extern NSString* const LanguagesViewControllerChosenLanguageUserInfoKey;
 
 
-@interface LanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface LanguagesViewController : CommonViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) NSArray *languages;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *topBar;
 
 - (IBAction)closeModalAction:(UIButton *)sender;
 

@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
+#import "CommonViewController.h"
 
-@interface TranslateTabViewController : UIViewController <UITextViewDelegate>
+@interface TranslateTabViewController : CommonViewController <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *inputView;
 @property (weak, nonatomic) IBOutlet UIView *outputView;

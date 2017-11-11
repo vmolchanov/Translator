@@ -316,19 +316,6 @@
 }
 
 
-- (void)view:(UIView *)view withWidth:(CGFloat)width height:(CGFloat)height x:(CGFloat)x y:(CGFloat)y {
-    CGRect inputViewBounds = view.bounds;
-    inputViewBounds.size.width = width;
-    inputViewBounds.size.height = height;
-    view.bounds = inputViewBounds;
-    
-    CGRect inputViewFrame = view.frame;
-    inputViewFrame.origin.x = x;
-    inputViewFrame.origin.y = y;
-    view.frame = inputViewFrame;
-}
-
-
 - (void)swapLanguages {
     NSString *temp = self.sourceLanguageButton.titleLabel.text;
     [self.sourceLanguageButton setTitle:self.translationLanguageButton.titleLabel.text forState:UIControlStateNormal];
