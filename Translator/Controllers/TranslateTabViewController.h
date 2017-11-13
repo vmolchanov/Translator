@@ -18,6 +18,8 @@
 
 - (IBAction)clearTextViewAction:(id)sender;
 - (IBAction)swapLanguagesAction:(id)sender;
+- (IBAction)addToClipboardAction:(id)sender;
+
 
 @property (strong, nonatomic) NSString *sourceLanguageAbbr;
 @property (strong, nonatomic) NSString *translationLanguageAbbr;

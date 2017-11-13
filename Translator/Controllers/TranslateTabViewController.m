@@ -244,6 +244,12 @@
 }
 
 
+- (IBAction)addToClipboardAction:(id)sender {
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = self.outputLabel.text;
+}
+
+
 - (void)endEditingAction {
     [self.inputView endEditing:YES];
     [self.outputView endEditing:YES];

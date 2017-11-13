@@ -127,6 +127,9 @@
                                         <rect key="frame" x="319" y="68" width="27" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="copyIcon"/>
+                                        <connections>
+                                            <action selector="addToClipboardAction:" destination="Ivu-ri-lPi" eventType="touchUpInside" id="WNF-La-tHn"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
