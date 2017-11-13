@@ -9,6 +9,8 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
 
 @interface LanguagesViewController ()
 
+@property (strong, nonatomic) NSMutableArray *filteredLanguages;
+
 @end
 
 @implementation LanguagesViewController
@@ -90,7 +92,7 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.languages count];
+    return [self.filteredLanguages count];
 }
 
 
@@ -102,12 +104,10 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
     }
     
-    NSDictionary *lang = [self.languages objectAtIndex:indexPath.row];
+    NSDictionary *lang = [self.filteredLanguages objectAtIndex:indexPath.row];
     NSString *langAbbr = [[lang allKeys] objectAtIndex:0];
     
-        
     cell.textLabel.text = [NSString stringWithFormat:@"%@", [lang objectForKey:langAbbr]];
-    
     
     return cell;
 }
@@ -121,16 +121,15 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
     
     NSDictionary *selectedLang;
     
-    for (NSDictionary *lang in self.languages) {
-        NSString *key = [[lang allKeys] objectAtIndex:0];
-        NSString *abbr = [lang objectForKey:key];
+    for (NSDictionary *lang in self.filteredLanguages) {
+        NSString *abbr = [[lang allKeys] objectAtIndex:0];
+        NSString *langName = [lang objectForKey:abbr];
         
-        if ([abbr isEqualToString:selectedCellText]) {
+        if ([langName isEqualToString:selectedCellText]) {
             selectedLang = lang;
             break;
         }
     }
-    
     
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:selectedLang
                                                          forKey:LanguagesViewControllerChosenLanguageUserInfoKey];
@@ -148,7 +147,35 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
 
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if ([searchText length] == 0) {
+        self.filteredLanguages = [NSMutableArray arrayWithArray:self.languages];
+        [self.tableView reloadData];
+        return;
+    }
     
+    self.filteredLanguages = [NSMutableArray array];
+    
+    for (NSDictionary *lang in self.languages) {
+        NSString *abbr = [[lang allKeys] objectAtIndex:0];
+        NSString *langName = [[lang objectForKey:abbr] lowercaseString];
+        
+        if ([langName rangeOfString:[searchText lowercaseString]].location != NSNotFound) {
+            [self.filteredLanguages addObject:lang];
+        }
+    }
+    
+    [self.tableView reloadData];
+}
+
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [searchBar setShowsCancelButton:YES animated:YES];
+}
+
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+    [searchBar setShowsCancelButton:NO animated:YES];
 }
 
 
@@ -170,6 +197,8 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
         
         return [[obj1 objectForKey:firstLangAbbr] compare:[obj2 objectForKey:secondLangAbbr]];
     }];
+    
+    self.filteredLanguages = [NSMutableArray arrayWithArray:self.languages];
     
     __weak LanguagesViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
