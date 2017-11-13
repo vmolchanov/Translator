@@ -1,12 +1,14 @@
 #import "TranslateTabViewController.h"
 #import "UIColor+Compare.h"
 #import "LanguagesViewController.h"
+#import "TranslatorAPI.h"
 
 @interface TranslateTabViewController ()
 
 @property (strong, nonatomic) NSString *placeholderText;
 @property (strong, nonatomic) UIColor  *placeholderColor;
 @property (strong, nonatomic) UIButton *clickedButton;
+@property (strong, nonatomic) NSString *detectedLanguage;
 
 @end
 
@@ -33,6 +35,15 @@
     UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditingAction)];
     [self.inputView addGestureRecognizer:gr];
     [self.outputView addGestureRecognizer:gr];
+    
+    // initial language
+    self.sourceLanguageAbbr = @"en";
+    self.translationLanguageAbbr = @"ru";
+}
+
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -44,8 +55,20 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [self viewWillTransitionToSize:[[UIScreen mainScreen] bounds].size withTransitionCoordinator:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setTranslationNotification:)
+                                                 name:TranslatorAPITranslationDidCompleteNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(detectedOtherSourceLanguageNotification:)
+                                                 name:TranslatorAPIDetectedOtherSourceLanguageNotification
+                                               object:nil];
 }
 
 
@@ -237,7 +260,6 @@
                                              selector:@selector(setNewLanguageNotification:)
                                                  name:LanguagesViewControllerCellDidSelectNotification
                                                object:nil];
-    
 }
 
 
@@ -246,7 +268,7 @@
 
 - (void)setNewLanguageNotification:(NSNotification *)notification {
     NSDictionary *userInfo = [notification.userInfo objectForKey:LanguagesViewControllerChosenLanguageUserInfoKey];
-    NSDictionary *abbr = [[userInfo allKeys] objectAtIndex:0];
+    NSString *abbr = [[userInfo allKeys] objectAtIndex:0];
     
     UIButton *unclickedButton;
     
@@ -260,6 +282,61 @@
         [self swapLanguages];
     } else {
         [self.clickedButton setTitle:[userInfo objectForKey:abbr] forState:UIControlStateNormal];
+        if ([self.clickedButton isEqual:self.sourceLanguageButton]) {
+            self.sourceLanguageAbbr = abbr;
+        } else {
+            self.translationLanguageAbbr = abbr;
+        }
+    }
+}
+
+
+- (void)setTranslationNotification:(NSNotification *)notification {
+    __weak typeof (self) weakSelf = self;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *translation = [[notification.userInfo objectForKey:TranslatorAPITranslationTextUserInfoKey] objectAtIndex:0];
+        [weakSelf setOutputLabelWithText:translation favouriteButtonAsHidden:NO clipboardButtonAsHidden:NO];
+    });
+}
+
+
+- (void)detectedOtherSourceLanguageNotification:(NSNotification *)notification {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setDetectedSourceLanguageNotification:)
+                                                 name:TranslatorAPIAvailableLanguagesDidLoadNotification
+                                               object:nil];
+    
+    self.detectedLanguage = [notification.userInfo valueForKey:TranslatorAPIOtherSourceLanguageUserInfoKey];
+    
+    TranslatorAPI *translateAPI = [TranslatorAPI api];
+    [translateAPI availableLanguages];
+}
+
+
+- (void)setDetectedSourceLanguageNotification:(NSNotification *)notification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:TranslatorAPIAvailableLanguagesDidLoadNotification
+                                                  object:nil];
+    
+    NSDictionary *languages = [notification.userInfo valueForKey:TranslatorAPIAvailableLanguagesUserInfoKey];
+    
+    for (NSString *abbr in languages) {
+        if ([abbr isEqualToString:self.detectedLanguage]) {
+            __weak typeof (self) weakSelf = self;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([[languages objectForKey:abbr] isEqualToString:weakSelf.translationLanguageButton.titleLabel.text]) {
+                    [weakSelf swapLanguages];
+                } else {
+                    weakSelf.sourceLanguageAbbr = abbr;
+                }
+                
+                [weakSelf.sourceLanguageButton setTitle:[languages objectForKey:abbr]
+                                           forState:UIControlStateNormal];
+            });
+            break;
+        }
     }
 }
 
@@ -268,6 +345,8 @@
 
 
 - (void)textViewDidChange:(UITextView *)textView {
+    TranslatorAPI *translatorAPI = [TranslatorAPI api];
+    
     if ([self textViewHavePlaceholder:textView]) {
         if ([textView.text length] > [self.placeholderText length]) {
             [self textView:textView
@@ -276,14 +355,12 @@
 
             [self.clearTextViewButton setHidden:NO];
 
-            // server request
-            [self setOutputLabelWithText:textView.text favouriteButtonAsHidden:NO clipboardButtonAsHidden:NO];
+            [translatorAPI translateText:textView.text from:self.sourceLanguageAbbr to:self.translationLanguageAbbr];
         } else {
             [self textView:textView setText:self.placeholderText color:self.placeholderColor];
         }
     } else if ([textView.text length] != 0) {
-        // server request
-        [self setOutputLabelWithText:textView.text favouriteButtonAsHidden:NO clipboardButtonAsHidden:NO];
+        [translatorAPI translateText:textView.text from:self.sourceLanguageAbbr to:self.translationLanguageAbbr];
     }
 
     if ([textView.text length] == 0) {
@@ -331,6 +408,10 @@
     NSString *temp = self.sourceLanguageButton.titleLabel.text;
     [self.sourceLanguageButton setTitle:self.translationLanguageButton.titleLabel.text forState:UIControlStateNormal];
     [self.translationLanguageButton setTitle:temp forState:UIControlStateNormal];
+    
+    NSString *tempAbbr = self.sourceLanguageAbbr;
+    self.sourceLanguageAbbr = self.translationLanguageAbbr;
+    self.translationLanguageAbbr = tempAbbr;
 }
 
 @end
