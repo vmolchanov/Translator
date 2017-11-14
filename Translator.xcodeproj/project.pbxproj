@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC2957A11FBB10AC0007099B /* FavouriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2957A01FBB10AC0007099B /* FavouriteTableViewCell.m */; };
+		BC2957A41FBB32750007099B /* FavouriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2957A31FBB32750007099B /* FavouriteViewController.m */; };
 		BC71E1691FB7759600198775 /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC71E1681FB7759600198775 /* CommonViewController.m */; };
 		BCA9B1631FB0FBBE00CA2F5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCA9B1621FB0FBBE00CA2F5A /* Assets.xcassets */; };
 		BCA9B1691FB10AE200CA2F5A /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA9B1681FB10AE200CA2F5A /* TabBarViewController.m */; };
@@ -22,6 +24,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC29579F1FBB10AC0007099B /* FavouriteTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavouriteTableViewCell.h; sourceTree = "<group>"; };
+		BC2957A01FBB10AC0007099B /* FavouriteTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavouriteTableViewCell.m; sourceTree = "<group>"; };
+		BC2957A21FBB32750007099B /* FavouriteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavouriteViewController.h; sourceTree = "<group>"; };
+		BC2957A31FBB32750007099B /* FavouriteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavouriteViewController.m; sourceTree = "<group>"; };
 		BC71E1671FB7759600198775 /* CommonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonViewController.h; sourceTree = "<group>"; };
 		BC71E1681FB7759600198775 /* CommonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
 		BCA9B1621FB0FBBE00CA2F5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,11 +62,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC29579E1FBB10760007099B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BC29579F1FBB10AC0007099B /* FavouriteTableViewCell.h */,
+				BC2957A01FBB10AC0007099B /* FavouriteTableViewCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		BCA9B1711FB11BCB00CA2F5A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				BC71E1671FB7759600198775 /* CommonViewController.h */,
 				BC71E1681FB7759600198775 /* CommonViewController.m */,
+				BC2957A21FBB32750007099B /* FavouriteViewController.h */,
+				BC2957A31FBB32750007099B /* FavouriteViewController.m */,
 				BCA9B17D1FB2599B00CA2F5A /* LanguagesViewController.h */,
 				BCA9B17E1FB2599B00CA2F5A /* LanguagesViewController.m */,
 				BCA9B1671FB10AE200CA2F5A /* TabBarViewController.h */,
@@ -109,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				BCA9B1791FB1CDFC00CA2F5A /* Categories */,
+				BC29579E1FBB10760007099B /* Cells */,
 				BCA9B1711FB11BCB00CA2F5A /* Controllers */,
 				BCA9B1801FB3164B00CA2F5A /* Models */,
 				BCE11FC01FAA0280007232E6 /* AppDelegate.h */,
@@ -204,8 +222,10 @@
 				BCA9B17F1FB2599B00CA2F5A /* LanguagesViewController.m in Sources */,
 				BCE11FCB1FAA0280007232E6 /* Translator.xcdatamodeld in Sources */,
 				BCA9B1741FB11BFE00CA2F5A /* TranslateTabViewController.m in Sources */,
+				BC2957A11FBB10AC0007099B /* FavouriteTableViewCell.m in Sources */,
 				BCE11FD31FAA0280007232E6 /* main.m in Sources */,
 				BCA9B1831FB3167100CA2F5A /* TranslatorAPI.m in Sources */,
+				BC2957A41FBB32750007099B /* FavouriteViewController.m in Sources */,
 				BCE11FC21FAA0280007232E6 /* AppDelegate.m in Sources */,
 				BC71E1691FB7759600198775 /* CommonViewController.m in Sources */,
 			);
