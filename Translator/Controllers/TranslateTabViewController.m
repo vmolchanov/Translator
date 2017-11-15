@@ -84,6 +84,10 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
                                              selector:@selector(favouritesHasPhraseNotification:)
                                                  name:FavouriteTabViewControllerFavouritesHasPhaseNotification
                                                object:nil];
+    
+    if ([self.inputTextView.text length] != 0) {
+        [self setStarIcon];
+    }
 }
 
 
@@ -344,16 +348,7 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     __weak typeof (self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf setOutputLabelWithText:translation favouriteButtonAsHidden:NO clipboardButtonAsHidden:NO];
-        [weakSelf.addToFavouriteButton setImage:[UIImage imageNamed:@"starIcon"]
-                                       forState:UIControlStateNormal];
-        
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:weakSelf.inputTextView.text
-                                                             forKey:TranslationTabViewControllerTranslationUserInfoKey];
-        
-        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc postNotificationName:TranslationTabViewControllerCheckTranslationNotification
-                          object:nil
-                        userInfo:userInfo];
+        [self setStarIcon];
     });
 }
 
@@ -479,6 +474,20 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     NSString *tempAbbr = self.sourceLanguageAbbr;
     self.sourceLanguageAbbr = self.translationLanguageAbbr;
     self.translationLanguageAbbr = tempAbbr;
+}
+
+
+- (void)setStarIcon {
+    [self.addToFavouriteButton setImage:[UIImage imageNamed:@"starIcon"]
+                               forState:UIControlStateNormal];
+    
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:self.inputTextView.text
+                                                         forKey:TranslationTabViewControllerTranslationUserInfoKey];
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc postNotificationName:TranslationTabViewControllerCheckTranslationNotification
+                      object:nil
+                    userInfo:userInfo];
 }
 
 @end

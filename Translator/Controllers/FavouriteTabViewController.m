@@ -114,6 +114,19 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
 }
 
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.favourites removeObjectAtIndex:indexPath.row];
+    [tableView beginUpdates];
+    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [tableView endUpdates];
+}
+
+
 #pragma mark - UITableViewDelegate
 
 
