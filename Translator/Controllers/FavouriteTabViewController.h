@@ -7,4 +7,6 @@ extern NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+- (IBAction)clearFavouriteAction:(UIButton *)sender;
+
 @end

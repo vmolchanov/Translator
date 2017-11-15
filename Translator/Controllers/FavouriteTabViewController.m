@@ -52,7 +52,35 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    [self setAlphaForTableView:self.tableView];
     [self.tableView reloadData];
+}
+
+
+#pragma mark - Actions
+
+
+- (IBAction)clearFavouriteAction:(UIButton *)sender {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+    __weak typeof (self) weakSelf = self;
+    
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Очистить избранное"
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             weakSelf.favourites = [NSMutableArray array];
+                                                             [weakSelf.tableView reloadData];
+                                                             [weakSelf setAlphaForTableView:weakSelf.tableView];
+                                                         }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    
+    [alertController addAction:deleteAction];
+    [alertController addAction:cancelAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 
@@ -124,6 +152,11 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     [tableView beginUpdates];
     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     [tableView endUpdates];
+    
+    __weak typeof (self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf setAlphaForTableView:weakSelf.tableView];
+    });
 }
 
 
@@ -132,6 +165,11 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65.0f;
+}
+
+
+- (void)setAlphaForTableView:(UITableView *)tableView {
+    tableView.alpha = [self.favourites count] ? 1.0f : 0.0f;
 }
 
 @end
