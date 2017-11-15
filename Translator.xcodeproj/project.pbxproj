@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BC2957A11FBB10AC0007099B /* FavouriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2957A01FBB10AC0007099B /* FavouriteTableViewCell.m */; };
-		BC2957A41FBB32750007099B /* FavouriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2957A31FBB32750007099B /* FavouriteViewController.m */; };
+		BC2957A41FBB32750007099B /* FavouriteTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2957A31FBB32750007099B /* FavouriteTabViewController.m */; };
+		BC2957A91FBB5A3C0007099B /* UIImage+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2957A81FBB5A3C0007099B /* UIImage+Compare.m */; };
 		BC71E1691FB7759600198775 /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC71E1681FB7759600198775 /* CommonViewController.m */; };
 		BCA9B1631FB0FBBE00CA2F5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCA9B1621FB0FBBE00CA2F5A /* Assets.xcassets */; };
 		BCA9B1691FB10AE200CA2F5A /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA9B1681FB10AE200CA2F5A /* TabBarViewController.m */; };
@@ -26,8 +27,10 @@
 /* Begin PBXFileReference section */
 		BC29579F1FBB10AC0007099B /* FavouriteTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavouriteTableViewCell.h; sourceTree = "<group>"; };
 		BC2957A01FBB10AC0007099B /* FavouriteTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavouriteTableViewCell.m; sourceTree = "<group>"; };
-		BC2957A21FBB32750007099B /* FavouriteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavouriteViewController.h; sourceTree = "<group>"; };
-		BC2957A31FBB32750007099B /* FavouriteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavouriteViewController.m; sourceTree = "<group>"; };
+		BC2957A31FBB32750007099B /* FavouriteTabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavouriteTabViewController.m; sourceTree = "<group>"; };
+		BC2957A51FBB41BE0007099B /* FavouriteTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouriteTabViewController.h; sourceTree = "<group>"; };
+		BC2957A71FBB5A3C0007099B /* UIImage+Compare.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Compare.h"; sourceTree = "<group>"; };
+		BC2957A81FBB5A3C0007099B /* UIImage+Compare.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Compare.m"; sourceTree = "<group>"; };
 		BC71E1671FB7759600198775 /* CommonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonViewController.h; sourceTree = "<group>"; };
 		BC71E1681FB7759600198775 /* CommonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
 		BCA9B1621FB0FBBE00CA2F5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,8 +79,8 @@
 			children = (
 				BC71E1671FB7759600198775 /* CommonViewController.h */,
 				BC71E1681FB7759600198775 /* CommonViewController.m */,
-				BC2957A21FBB32750007099B /* FavouriteViewController.h */,
-				BC2957A31FBB32750007099B /* FavouriteViewController.m */,
+				BC2957A51FBB41BE0007099B /* FavouriteTabViewController.h */,
+				BC2957A31FBB32750007099B /* FavouriteTabViewController.m */,
 				BCA9B17D1FB2599B00CA2F5A /* LanguagesViewController.h */,
 				BCA9B17E1FB2599B00CA2F5A /* LanguagesViewController.m */,
 				BCA9B1671FB10AE200CA2F5A /* TabBarViewController.h */,
@@ -93,6 +96,8 @@
 			children = (
 				BCA9B17A1FB1D01500CA2F5A /* UIColor+Compare.h */,
 				BCA9B17B1FB1D01500CA2F5A /* UIColor+Compare.m */,
+				BC2957A71FBB5A3C0007099B /* UIImage+Compare.h */,
+				BC2957A81FBB5A3C0007099B /* UIImage+Compare.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -225,9 +230,10 @@
 				BC2957A11FBB10AC0007099B /* FavouriteTableViewCell.m in Sources */,
 				BCE11FD31FAA0280007232E6 /* main.m in Sources */,
 				BCA9B1831FB3167100CA2F5A /* TranslatorAPI.m in Sources */,
-				BC2957A41FBB32750007099B /* FavouriteViewController.m in Sources */,
+				BC2957A41FBB32750007099B /* FavouriteTabViewController.m in Sources */,
 				BCE11FC21FAA0280007232E6 /* AppDelegate.m in Sources */,
 				BC71E1691FB7759600198775 /* CommonViewController.m in Sources */,
+				BC2957A91FBB5A3C0007099B /* UIImage+Compare.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

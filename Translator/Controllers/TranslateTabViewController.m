@@ -1,7 +1,17 @@
 #import "TranslateTabViewController.h"
 #import "UIColor+Compare.h"
+#import "UIImage+Compare.h"
 #import "LanguagesViewController.h"
 #import "TranslatorAPI.h"
+#import "FavouriteTabViewController.h"
+
+NSString* const TranslationTabViewControllerCheckTranslationNotification = @"TranslationTabViewControllerCheckTranslationNotification";
+NSString* const TranslationTabViewControllerAddToFavouriteNotification = @"TranslationTabViewControllerAddToFavouriteNotification";
+NSString* const TranslationTabViewControllerRemoveFromFavouriteNotification = @"TranslationTabViewControllerRemoveFromFavouriteNotification";
+
+NSString* const TranslationTabViewControllerTranslationUserInfoKey = @"TranslationTabViewControllerTranslationUserInfoKey";
+NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"TranslationTabViewControllerInfoAboutTranslationUserInfoKey";
+
 
 @interface TranslateTabViewController ()
 
@@ -68,6 +78,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(detectedOtherSourceLanguageNotification:)
                                                  name:TranslatorAPIDetectedOtherSourceLanguageNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(favouritesHasPhraseNotification:)
+                                                 name:FavouriteTabViewControllerFavouritesHasPhaseNotification
                                                object:nil];
 }
 
@@ -232,21 +247,47 @@
 #pragma mark - Actions
 
 
-- (IBAction)clearTextViewAction:(id)sender {
+- (IBAction)clearTextViewAction:(UIButton *)sender {
     [self textView:self.inputTextView setText:self.placeholderText color:self.placeholderColor];
     [sender setHidden:YES];
     [self setOutputLabelWithText:@"" favouriteButtonAsHidden:YES clipboardButtonAsHidden:YES];
 }
 
 
-- (IBAction)swapLanguagesAction:(id)sender {
+- (IBAction)swapLanguagesAction:(UIButton *)sender {
     [self swapLanguages];
 }
 
 
-- (IBAction)addToClipboardAction:(id)sender {
+- (IBAction)addToClipboardAction:(UIButton *)sender {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = self.outputLabel.text;
+}
+
+
+- (IBAction)addToFavouriteAction:(UIButton *)sender {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    
+    NSDictionary *infoAboutTranslation = @{@"sourcePhrase": self.inputTextView.text,
+                                           @"translationPhrase": self.outputLabel.text,
+                                           @"sourceLangAbbr": self.sourceLanguageAbbr,
+                                           @"translationLangAbbr": self.translationLanguageAbbr
+                                           };
+    NSDictionary *userInfo = [NSDictionary
+                              dictionaryWithObject:infoAboutTranslation
+                                            forKey:TranslationTabViewControllerInfoAboutTranslationUserInfoKey];
+    
+    if ([[sender currentImage] isEqualToImage:[UIImage imageNamed:@"starIcon"]]) {
+        [self.addToFavouriteButton setImage:[UIImage imageNamed:@"starIconSelected"] forState:UIControlStateNormal];
+        [nc postNotificationName:TranslationTabViewControllerAddToFavouriteNotification
+                          object:nil
+                        userInfo:userInfo];
+    } else {
+        [self.addToFavouriteButton setImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+        [nc postNotificationName:TranslationTabViewControllerRemoveFromFavouriteNotification
+                          object:nil
+                        userInfo:userInfo];
+    }
 }
 
 
@@ -298,11 +339,21 @@
 
 
 - (void)setTranslationNotification:(NSNotification *)notification {
-    __weak typeof (self) weakSelf = self;
+    NSString *translation = [[notification.userInfo objectForKey:TranslatorAPITranslationTextUserInfoKey] objectAtIndex:0];
     
+    __weak typeof (self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *translation = [[notification.userInfo objectForKey:TranslatorAPITranslationTextUserInfoKey] objectAtIndex:0];
         [weakSelf setOutputLabelWithText:translation favouriteButtonAsHidden:NO clipboardButtonAsHidden:NO];
+        [weakSelf.addToFavouriteButton setImage:[UIImage imageNamed:@"starIcon"]
+                                       forState:UIControlStateNormal];
+        
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:weakSelf.inputTextView.text
+                                                             forKey:TranslationTabViewControllerTranslationUserInfoKey];
+        
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc postNotificationName:TranslationTabViewControllerCheckTranslationNotification
+                          object:nil
+                        userInfo:userInfo];
     });
 }
 
@@ -330,20 +381,30 @@
     for (NSString *abbr in languages) {
         if ([abbr isEqualToString:self.detectedLanguage]) {
             __weak typeof (self) weakSelf = self;
-            
             dispatch_async(dispatch_get_main_queue(), ^{
-                if ([[languages objectForKey:abbr] isEqualToString:weakSelf.translationLanguageButton.titleLabel.text]) {
+                NSString *translationLanguageButtonText = weakSelf.translationLanguageButton.titleLabel.text;
+                
+                if ([[languages objectForKey:abbr] isEqualToString:translationLanguageButtonText]) {
                     [weakSelf swapLanguages];
                 } else {
                     weakSelf.sourceLanguageAbbr = abbr;
                 }
                 
                 [weakSelf.sourceLanguageButton setTitle:[languages objectForKey:abbr]
-                                           forState:UIControlStateNormal];
+                                               forState:UIControlStateNormal];
             });
             break;
         }
     }
+}
+
+
+- (void)favouritesHasPhraseNotification:(NSNotification *)notification {
+    __weak typeof (self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.addToFavouriteButton setImage:[UIImage imageNamed:@"starIconSelected"]
+                                       forState:UIControlStateNormal];
+    });
 }
 
 

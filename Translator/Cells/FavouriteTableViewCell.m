@@ -1,11 +1,3 @@
-//
-//  FavouriteTableViewCell.m
-//  Translator
-//
-//  Created by Владислав Молчанов on 14/11/2017.
-//  Copyright © 2017 Владислав Молчанов. All rights reserved.
-//
-
 #import "FavouriteTableViewCell.h"
 
 @implementation FavouriteTableViewCell
