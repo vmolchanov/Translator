@@ -1,4 +1,6 @@
 #import "CommonViewController.h"
+#import "../Models/CoreDataManager.h"
+
 
 @interface CommonViewController ()
 
@@ -15,6 +17,15 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (NSManagedObjectContext *)context {
+    if (self->_context == nil) {
+        self->_context = [[CoreDataManager defaultManager] managedObjectContext];
+    }
+    
+    return self->_context;
 }
 
 
