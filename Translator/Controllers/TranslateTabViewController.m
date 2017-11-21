@@ -4,6 +4,8 @@
 #import "LanguagesViewController.h"
 #import "TranslatorAPI.h"
 #import "FavouriteTabViewController.h"
+#import "SettingsTabTableViewController.h"
+#import "../Models/Translation/Translation+CoreDataClass.h"
 
 NSString* const TranslationTabViewControllerCheckTranslationNotification = @"TranslationTabViewControllerCheckTranslationNotification";
 NSString* const TranslationTabViewControllerAddToFavouriteNotification = @"TranslationTabViewControllerAddToFavouriteNotification";
@@ -47,8 +49,40 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     [self.outputView addGestureRecognizer:gr];
     
     // initial language
-    self.sourceLanguageAbbr = @"en";
-    self.translationLanguageAbbr = @"ru";
+    NSError *error = nil;
+    NSArray *translationDataArray = [self.context executeFetchRequest:[Translation fetchRequest] error:&error];
+    if (error) {
+        [error localizedDescription];
+    }
+    
+    if ([translationDataArray count] != 0) {
+        Translation *translationData = [translationDataArray objectAtIndex:0];
+        
+        [self.sourceLanguageButton setTitle:translationData.sourceLanguageName
+                                   forState:UIControlStateNormal];
+        [self.translationLanguageButton setTitle:translationData.translationLanguageName
+                                        forState:UIControlStateNormal];
+        self.sourceLanguageAbbr = translationData.sourceLanguageAbbr;
+        self.translationLanguageAbbr = translationData.translationLanguageAbbr;
+    } else {
+        [self.sourceLanguageButton setTitle:@"Английский" forState:UIControlStateNormal];
+        [self.translationLanguageButton setTitle:@"Русский" forState:UIControlStateNormal];
+        self.sourceLanguageAbbr = @"en";
+        self.translationLanguageAbbr = @"ru";
+        
+        Translation *translation = [[Translation alloc] initWithContext:self.context];
+        translation.sourceLanguageName = @"Английский";
+        translation.translationLanguageName = @"Русский";
+        translation.sourceLanguageAbbr = @"en";
+        translation.translationLanguageAbbr = @"ru";
+        
+        [self.context save:nil];
+    }
+    
+    // initial theme
+    UIColor *themeColor = [UIColor colorWithRed:157.0f / 255 green:35.0f / 255 blue:245.0f / 255 alpha:1.0f];
+    UIColor *fontColor = [UIColor colorWithRed:255.0f / 255 green:255.0f / 255 blue:255.0f / 255 alpha:1.0f];
+    [self applyThemeWithColor:themeColor fontColor:fontColor];
 }
 
 
@@ -88,6 +122,16 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     if ([self.inputTextView.text length] != 0) {
         [self setStarIcon];
     }
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(themeDidChangeNotification:)
+                                                 name:SettingsTabTableViewControllerThemeDidChangeNotification
+                                               object:nil];
 }
 
 
@@ -323,6 +367,9 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     
     UIButton *unclickedButton;
     
+    Translation *translationData = [[self.context executeFetchRequest:[Translation fetchRequest]
+                                                                error:nil] objectAtIndex:0];
+    
     if ([self.clickedButton isEqual:self.sourceLanguageButton]) {
         unclickedButton = self.translationLanguageButton;
     } else {
@@ -335,10 +382,18 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
         [self.clickedButton setTitle:[userInfo objectForKey:abbr] forState:UIControlStateNormal];
         if ([self.clickedButton isEqual:self.sourceLanguageButton]) {
             self.sourceLanguageAbbr = abbr;
+            
+            translationData.sourceLanguageAbbr = abbr;
+            translationData.sourceLanguageName = [userInfo objectForKey:abbr];
         } else {
             self.translationLanguageAbbr = abbr;
+            
+            translationData.translationLanguageAbbr = abbr;
+            translationData.translationLanguageName = [userInfo objectForKey:abbr];
         }
     }
+    
+    [self.context save:nil];
 }
 
 
@@ -373,6 +428,9 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     
     NSDictionary *languages = [notification.userInfo valueForKey:TranslatorAPIAvailableLanguagesUserInfoKey];
     
+    Translation *translationData = [[self.context executeFetchRequest:[Translation fetchRequest]
+                                                                error:nil] objectAtIndex:0];
+    
     for (NSString *abbr in languages) {
         if ([abbr isEqualToString:self.detectedLanguage]) {
             __weak typeof (self) weakSelf = self;
@@ -383,10 +441,14 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
                     [weakSelf swapLanguages];
                 } else {
                     weakSelf.sourceLanguageAbbr = abbr;
+                    [weakSelf.sourceLanguageButton setTitle:[languages objectForKey:abbr]
+                                                   forState:UIControlStateNormal];
+                    
+                    translationData.sourceLanguageAbbr = abbr;
+                    translationData.sourceLanguageName = [languages objectForKey:abbr];
+                    
+                    [self.context save:nil];
                 }
-                
-                [weakSelf.sourceLanguageButton setTitle:[languages objectForKey:abbr]
-                                               forState:UIControlStateNormal];
             });
             break;
         }
@@ -400,6 +462,13 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
         [weakSelf.addToFavouriteButton setImage:[UIImage imageNamed:@"starIconSelected"]
                                        forState:UIControlStateNormal];
     });
+}
+
+
+- (void)themeDidChangeNotification:(NSNotification *)notification {
+    NSDictionary *userInfo = [notification.userInfo objectForKey:SettingsTabTableViewControllerNewThemeUserInfoKey];
+    [self applyThemeWithColor:[userInfo objectForKey:@"themeColor"]
+                    fontColor:[userInfo objectForKey:@"fontColor"]];
 }
 
 
@@ -474,6 +543,16 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     NSString *tempAbbr = self.sourceLanguageAbbr;
     self.sourceLanguageAbbr = self.translationLanguageAbbr;
     self.translationLanguageAbbr = tempAbbr;
+    
+    // Core Data
+    Translation *translationData = [[self.context executeFetchRequest:[Translation fetchRequest]
+                                                                error:nil] objectAtIndex:0];
+    translationData.sourceLanguageName = self.translationLanguageButton.titleLabel.text;
+    translationData.translationLanguageName = self.sourceLanguageButton.titleLabel.text;
+    translationData.sourceLanguageAbbr = self.sourceLanguageAbbr;
+    translationData.translationLanguageAbbr = self.translationLanguageAbbr;
+    
+    [self.context save:nil];
 }
 
 
@@ -488,6 +567,15 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     [nc postNotificationName:TranslationTabViewControllerCheckTranslationNotification
                       object:nil
                     userInfo:userInfo];
+}
+
+
+- (void)applyThemeWithColor:(UIColor *)color fontColor:(UIColor *)fontColor {
+    self.languagesBar.backgroundColor = color;
+    self.view.backgroundColor = color;
+    
+    [self.sourceLanguageButton setTitleColor:fontColor forState:UIControlStateNormal];
+    [self.translationLanguageButton setTitleColor:fontColor forState:UIControlStateNormal];
 }
 
 @end
