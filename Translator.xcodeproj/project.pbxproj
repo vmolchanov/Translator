@@ -10,7 +10,16 @@
 		BC2957A11FBB10AC0007099B /* FavouriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2957A01FBB10AC0007099B /* FavouriteTableViewCell.m */; };
 		BC2957A41FBB32750007099B /* FavouriteTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2957A31FBB32750007099B /* FavouriteTabViewController.m */; };
 		BC2957A91FBB5A3C0007099B /* UIImage+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2957A81FBB5A3C0007099B /* UIImage+Compare.m */; };
+		BC2957AC1FBCD14E0007099B /* SettingsTabTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2957AB1FBCD14E0007099B /* SettingsTabTableViewController.m */; };
+		BC60CD781FBDCEB100B107FD /* CustomNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC60CD771FBDCEB100B107FD /* CustomNavigationViewController.m */; };
 		BC71E1691FB7759600198775 /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC71E1681FB7759600198775 /* CommonViewController.m */; };
+		BC7D879E1FC21BFC0069D88D /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D879D1FC21BFC0069D88D /* CoreDataManager.m */; };
+		BC7D87AB1FC223050069D88D /* Favourite+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D87A01FC223050069D88D /* Favourite+CoreDataClass.m */; };
+		BC7D87AC1FC223050069D88D /* Favourite+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D87A21FC223050069D88D /* Favourite+CoreDataProperties.m */; };
+		BC7D87AD1FC223050069D88D /* Translation+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D87A41FC223050069D88D /* Translation+CoreDataClass.m */; };
+		BC7D87AE1FC223050069D88D /* Translation+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D87A61FC223050069D88D /* Translation+CoreDataProperties.m */; };
+		BC7D87AF1FC223050069D88D /* Settings+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D87A81FC223050069D88D /* Settings+CoreDataClass.m */; };
+		BC7D87B01FC223050069D88D /* Settings+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D87AA1FC223050069D88D /* Settings+CoreDataProperties.m */; };
 		BCA9B1631FB0FBBE00CA2F5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCA9B1621FB0FBBE00CA2F5A /* Assets.xcassets */; };
 		BCA9B1691FB10AE200CA2F5A /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA9B1681FB10AE200CA2F5A /* TabBarViewController.m */; };
 		BCA9B1741FB11BFE00CA2F5A /* TranslateTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA9B1731FB11BFE00CA2F5A /* TranslateTabViewController.m */; };
@@ -31,8 +40,26 @@
 		BC2957A51FBB41BE0007099B /* FavouriteTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouriteTabViewController.h; sourceTree = "<group>"; };
 		BC2957A71FBB5A3C0007099B /* UIImage+Compare.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Compare.h"; sourceTree = "<group>"; };
 		BC2957A81FBB5A3C0007099B /* UIImage+Compare.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Compare.m"; sourceTree = "<group>"; };
+		BC2957AA1FBCD14E0007099B /* SettingsTabTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsTabTableViewController.h; sourceTree = "<group>"; };
+		BC2957AB1FBCD14E0007099B /* SettingsTabTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsTabTableViewController.m; sourceTree = "<group>"; };
+		BC60CD761FBDCEB100B107FD /* CustomNavigationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomNavigationViewController.h; sourceTree = "<group>"; };
+		BC60CD771FBDCEB100B107FD /* CustomNavigationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationViewController.m; sourceTree = "<group>"; };
 		BC71E1671FB7759600198775 /* CommonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonViewController.h; sourceTree = "<group>"; };
 		BC71E1681FB7759600198775 /* CommonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
+		BC7D879C1FC21BFC0069D88D /* CoreDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
+		BC7D879D1FC21BFC0069D88D /* CoreDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
+		BC7D879F1FC223050069D88D /* Favourite+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Favourite+CoreDataClass.h"; sourceTree = "<group>"; };
+		BC7D87A01FC223050069D88D /* Favourite+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Favourite+CoreDataClass.m"; sourceTree = "<group>"; };
+		BC7D87A11FC223050069D88D /* Favourite+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Favourite+CoreDataProperties.h"; sourceTree = "<group>"; };
+		BC7D87A21FC223050069D88D /* Favourite+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Favourite+CoreDataProperties.m"; sourceTree = "<group>"; };
+		BC7D87A31FC223050069D88D /* Translation+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Translation+CoreDataClass.h"; sourceTree = "<group>"; };
+		BC7D87A41FC223050069D88D /* Translation+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Translation+CoreDataClass.m"; sourceTree = "<group>"; };
+		BC7D87A51FC223050069D88D /* Translation+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Translation+CoreDataProperties.h"; sourceTree = "<group>"; };
+		BC7D87A61FC223050069D88D /* Translation+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Translation+CoreDataProperties.m"; sourceTree = "<group>"; };
+		BC7D87A71FC223050069D88D /* Settings+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Settings+CoreDataClass.h"; sourceTree = "<group>"; };
+		BC7D87A81FC223050069D88D /* Settings+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Settings+CoreDataClass.m"; sourceTree = "<group>"; };
+		BC7D87A91FC223050069D88D /* Settings+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Settings+CoreDataProperties.h"; sourceTree = "<group>"; };
+		BC7D87AA1FC223050069D88D /* Settings+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Settings+CoreDataProperties.m"; sourceTree = "<group>"; };
 		BCA9B1621FB0FBBE00CA2F5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCA9B1671FB10AE200CA2F5A /* TabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		BCA9B1681FB10AE200CA2F5A /* TabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
@@ -74,15 +101,52 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		BC7D87B11FC2230E0069D88D /* Favourite */ = {
+			isa = PBXGroup;
+			children = (
+				BC7D879F1FC223050069D88D /* Favourite+CoreDataClass.h */,
+				BC7D87A01FC223050069D88D /* Favourite+CoreDataClass.m */,
+				BC7D87A11FC223050069D88D /* Favourite+CoreDataProperties.h */,
+				BC7D87A21FC223050069D88D /* Favourite+CoreDataProperties.m */,
+			);
+			path = Favourite;
+			sourceTree = "<group>";
+		};
+		BC7D87B21FC2231B0069D88D /* Translation */ = {
+			isa = PBXGroup;
+			children = (
+				BC7D87A31FC223050069D88D /* Translation+CoreDataClass.h */,
+				BC7D87A41FC223050069D88D /* Translation+CoreDataClass.m */,
+				BC7D87A51FC223050069D88D /* Translation+CoreDataProperties.h */,
+				BC7D87A61FC223050069D88D /* Translation+CoreDataProperties.m */,
+			);
+			path = Translation;
+			sourceTree = "<group>";
+		};
+		BC7D87B31FC223280069D88D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				BC7D87A71FC223050069D88D /* Settings+CoreDataClass.h */,
+				BC7D87A81FC223050069D88D /* Settings+CoreDataClass.m */,
+				BC7D87A91FC223050069D88D /* Settings+CoreDataProperties.h */,
+				BC7D87AA1FC223050069D88D /* Settings+CoreDataProperties.m */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		BCA9B1711FB11BCB00CA2F5A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				BC71E1671FB7759600198775 /* CommonViewController.h */,
 				BC71E1681FB7759600198775 /* CommonViewController.m */,
+				BC60CD761FBDCEB100B107FD /* CustomNavigationViewController.h */,
+				BC60CD771FBDCEB100B107FD /* CustomNavigationViewController.m */,
 				BC2957A51FBB41BE0007099B /* FavouriteTabViewController.h */,
 				BC2957A31FBB32750007099B /* FavouriteTabViewController.m */,
 				BCA9B17D1FB2599B00CA2F5A /* LanguagesViewController.h */,
 				BCA9B17E1FB2599B00CA2F5A /* LanguagesViewController.m */,
+				BC2957AA1FBCD14E0007099B /* SettingsTabTableViewController.h */,
+				BC2957AB1FBCD14E0007099B /* SettingsTabTableViewController.m */,
 				BCA9B1671FB10AE200CA2F5A /* TabBarViewController.h */,
 				BCA9B1681FB10AE200CA2F5A /* TabBarViewController.m */,
 				BCA9B1721FB11BFE00CA2F5A /* TranslateTabViewController.h */,
@@ -105,8 +169,13 @@
 		BCA9B1801FB3164B00CA2F5A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BC7D87B31FC223280069D88D /* Settings */,
+				BC7D87B21FC2231B0069D88D /* Translation */,
+				BC7D87B11FC2230E0069D88D /* Favourite */,
 				BCA9B1811FB3167100CA2F5A /* TranslatorAPI.h */,
 				BCA9B1821FB3167100CA2F5A /* TranslatorAPI.m */,
+				BC7D879C1FC21BFC0069D88D /* CoreDataManager.h */,
+				BC7D879D1FC21BFC0069D88D /* CoreDataManager.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -222,16 +291,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC60CD781FBDCEB100B107FD /* CustomNavigationViewController.m in Sources */,
+				BC7D87B01FC223050069D88D /* Settings+CoreDataProperties.m in Sources */,
 				BCA9B1691FB10AE200CA2F5A /* TabBarViewController.m in Sources */,
 				BCA9B17C1FB1D01500CA2F5A /* UIColor+Compare.m in Sources */,
 				BCA9B17F1FB2599B00CA2F5A /* LanguagesViewController.m in Sources */,
 				BCE11FCB1FAA0280007232E6 /* Translator.xcdatamodeld in Sources */,
 				BCA9B1741FB11BFE00CA2F5A /* TranslateTabViewController.m in Sources */,
+				BC7D87AE1FC223050069D88D /* Translation+CoreDataProperties.m in Sources */,
 				BC2957A11FBB10AC0007099B /* FavouriteTableViewCell.m in Sources */,
+				BC7D87AF1FC223050069D88D /* Settings+CoreDataClass.m in Sources */,
 				BCE11FD31FAA0280007232E6 /* main.m in Sources */,
 				BCA9B1831FB3167100CA2F5A /* TranslatorAPI.m in Sources */,
 				BC2957A41FBB32750007099B /* FavouriteTabViewController.m in Sources */,
+				BC2957AC1FBCD14E0007099B /* SettingsTabTableViewController.m in Sources */,
+				BC7D87AC1FC223050069D88D /* Favourite+CoreDataProperties.m in Sources */,
 				BCE11FC21FAA0280007232E6 /* AppDelegate.m in Sources */,
+				BC7D87AD1FC223050069D88D /* Translation+CoreDataClass.m in Sources */,
+				BC7D879E1FC21BFC0069D88D /* CoreDataManager.m in Sources */,
+				BC7D87AB1FC223050069D88D /* Favourite+CoreDataClass.m in Sources */,
 				BC71E1691FB7759600198775 /* CommonViewController.m in Sources */,
 				BC2957A91FBB5A3C0007099B /* UIImage+Compare.m in Sources */,
 			);

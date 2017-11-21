@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="16G1036" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="Favourite" representedClassName="Favourite" syncable="YES">
+        <attribute name="sourceLanguageAbbr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sourceText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="translationLanguageAbbr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="translationText" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Settings" representedClassName="Settings" syncable="YES">
+        <attribute name="fontColor" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isRotate" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isTranslationByEnter" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="themeColor" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Translation" representedClassName="Translation" syncable="YES">
+        <attribute name="sourceLanguageAbbr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sourceLanguageName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="translationLanguageAbbr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="translationLanguageName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Translation" positionX="-7499" positionY="-1107" width="146" height="103"/>
+        <element name="Favourite" positionX="-7292" positionY="-1107" width="128" height="103"/>
+        <element name="Settings" positionX="-7094" positionY="-1107" width="128" height="103"/>
+    </elements>
 </model>

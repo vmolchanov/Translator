@@ -57,7 +57,7 @@
 }
 
 
-#pragma mark - Static methods
+#pragma mark - Core Data singleton
 
 
 + (CoreDataManager *)defaultManager {
