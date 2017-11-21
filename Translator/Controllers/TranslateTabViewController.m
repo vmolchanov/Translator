@@ -5,6 +5,7 @@
 #import "TranslatorAPI.h"
 #import "FavouriteTabViewController.h"
 #import "SettingsTabTableViewController.h"
+#import "../Models/CoreDataManager.h"
 #import "../Models/Translation/Translation+CoreDataClass.h"
 #import "../Models/Settings/Settings+CoreDataClass.h"
 
@@ -112,10 +113,15 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     [self applyThemeWithColor:themeColor fontColor:fontColor];
     
     if ([settingsDataArray count] == 0) {
-        int32_t themeRGBColorBitwiseMask = (themeRedColor << 16) | (themeGreenColor << 8) | (themeBlueColor);
-        int32_t fontRGBColorBitwiseMask = (fontRedColor << 16) | (fontGreenColor << 8) | (fontBlueColor);
+        int32_t themeRGBColorBitwiseMask = [CoreDataManager bitwiseMaskByRedColor:themeRedColor
+                                                                       greenColor:themeGreenColor
+                                                                        blueColor:themeBlueColor];
+        int32_t fontRGBColorBitwiseMask = [CoreDataManager bitwiseMaskByRedColor:fontRedColor
+                                                                      greenColor:fontGreenColor
+                                                                       blueColor:fontBlueColor];
         
         Settings *settingsData = [[Settings alloc] initWithContext:self.context];
+        settingsData.themeId = 2;
         settingsData.themeColor = themeRGBColorBitwiseMask;
         settingsData.fontColor = fontRGBColorBitwiseMask;
         settingsData.isRotate = YES;

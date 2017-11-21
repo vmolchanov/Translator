@@ -203,7 +203,7 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
 
 
 - (void)applyThemeWithColor:(UIColor *)color fontColor:(UIColor *)fontColor {
-    self.topBar.backgroundColor = color;
+    [self.topBar setBackgroundColor:color];
     self.topBarTitleLabel.textColor = fontColor;
     [self.clearButton setTitleColor:fontColor forState:UIControlStateNormal];
 }

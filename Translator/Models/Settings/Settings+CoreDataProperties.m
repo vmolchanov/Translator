@@ -6,6 +6,7 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"Settings"];
 }
 
+@dynamic themeId;
 @dynamic themeColor;
 @dynamic fontColor;
 @dynamic isRotate;

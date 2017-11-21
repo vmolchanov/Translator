@@ -11,6 +11,7 @@
         <attribute name="isRotate" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isTranslationByEnter" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="themeColor" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="themeId" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="Translation" representedClassName="Translation" syncable="YES">
         <attribute name="sourceLanguageAbbr" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,7 +21,7 @@
     </entity>
     <elements>
         <element name="Favourite" positionX="-7292" positionY="-1107" width="128" height="103"/>
-        <element name="Settings" positionX="-7094" positionY="-1107" width="128" height="103"/>
+        <element name="Settings" positionX="-7094" positionY="-1107" width="128" height="118"/>
         <element name="Translation" positionX="-7499" positionY="-1107" width="146" height="103"/>
     </elements>
 </model>
