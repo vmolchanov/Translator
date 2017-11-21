@@ -13,6 +13,8 @@ extern NSString* const LanguagesViewControllerChosenLanguageUserInfoKey;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *topBar;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 - (IBAction)closeModalAction:(UIButton *)sender;
 

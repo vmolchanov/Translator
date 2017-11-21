@@ -1,6 +1,9 @@
 #import "FavouriteTabViewController.h"
 #import "FavouriteTableViewCell.h"
 #import "TranslateTabViewController.h"
+#import "SettingsTabTableViewController.h"
+#import "../Models/CoreDataManager.h"
+#import "../Models/Settings/Settings+CoreDataClass.h"
 
 NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"FavouriteTabViewControllerFavouritesHasPhaseNotification";
 
@@ -41,6 +44,14 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     [super viewDidLoad];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    // initial theme
+    Settings *settingsData = [[self.context executeFetchRequest:[Settings fetchRequest]
+                                                          error:nil] objectAtIndex:0];
+    
+    UIColor *themeColor = [CoreDataManager colorFromBitwiseMask:settingsData.themeColor];
+    UIColor *fontColor = [CoreDataManager colorFromBitwiseMask:settingsData.fontColor];
+    [self applyThemeWithColor:themeColor fontColor:fontColor];
 }
 
 
@@ -52,8 +63,19 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    
     [self setAlphaForTableView:self.tableView];
     [self.tableView reloadData];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(themeDidChangeNotification:)
+                                                 name:SettingsTabTableViewControllerThemeDidChangeNotification
+                                               object:nil];
 }
 
 
@@ -116,6 +138,13 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
 }
 
 
+- (void)themeDidChangeNotification:(NSNotification *)notification {
+    NSDictionary *userInfo = [notification.userInfo objectForKey:SettingsTabTableViewControllerNewThemeUserInfoKey];
+    [self applyThemeWithColor:[userInfo objectForKey:@"themeColor"]
+                    fontColor:[userInfo objectForKey:@"fontColor"]];
+}
+
+
 #pragma mark - UITableViewDataSource
 
 
@@ -170,6 +199,13 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
 
 - (void)setAlphaForTableView:(UITableView *)tableView {
     tableView.alpha = [self.favourites count] ? 1.0f : 0.0f;
+}
+
+
+- (void)applyThemeWithColor:(UIColor *)color fontColor:(UIColor *)fontColor {
+    self.topBar.backgroundColor = color;
+    self.topBarTitleLabel.textColor = fontColor;
+    [self.clearButton setTitleColor:fontColor forState:UIControlStateNormal];
 }
 
 @end

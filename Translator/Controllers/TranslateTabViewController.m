@@ -6,6 +6,7 @@
 #import "FavouriteTabViewController.h"
 #import "SettingsTabTableViewController.h"
 #import "../Models/Translation/Translation+CoreDataClass.h"
+#import "../Models/Settings/Settings+CoreDataClass.h"
 
 NSString* const TranslationTabViewControllerCheckTranslationNotification = @"TranslationTabViewControllerCheckTranslationNotification";
 NSString* const TranslationTabViewControllerAddToFavouriteNotification = @"TranslationTabViewControllerAddToFavouriteNotification";
@@ -49,10 +50,11 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     [self.outputView addGestureRecognizer:gr];
     
     // initial language
-    NSError *error = nil;
-    NSArray *translationDataArray = [self.context executeFetchRequest:[Translation fetchRequest] error:&error];
-    if (error) {
-        [error localizedDescription];
+    NSError *translationDataError = nil;
+    NSArray *translationDataArray = [self.context executeFetchRequest:[Translation fetchRequest]
+                                                                error:&translationDataError];
+    if (translationDataError) {
+        [translationDataError localizedDescription];
     }
     
     if ([translationDataArray count] != 0) {
@@ -70,19 +72,57 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
         self.sourceLanguageAbbr = @"en";
         self.translationLanguageAbbr = @"ru";
         
-        Translation *translation = [[Translation alloc] initWithContext:self.context];
-        translation.sourceLanguageName = @"Английский";
-        translation.translationLanguageName = @"Русский";
-        translation.sourceLanguageAbbr = @"en";
-        translation.translationLanguageAbbr = @"ru";
-        
-        [self.context save:nil];
+        Translation *translationData = [[Translation alloc] initWithContext:self.context];
+        translationData.sourceLanguageName = @"Английский";
+        translationData.translationLanguageName = @"Русский";
+        translationData.sourceLanguageAbbr = @"en";
+        translationData.translationLanguageAbbr = @"ru";
     }
     
     // initial theme
-    UIColor *themeColor = [UIColor colorWithRed:157.0f / 255 green:35.0f / 255 blue:245.0f / 255 alpha:1.0f];
-    UIColor *fontColor = [UIColor colorWithRed:255.0f / 255 green:255.0f / 255 blue:255.0f / 255 alpha:1.0f];
+    
+    NSError *settingsDataError = nil;
+    NSArray *settingsDataArray = [self.context executeFetchRequest:[Settings fetchRequest] error:&settingsDataError];
+    if (settingsDataError) {
+        [settingsDataError localizedDescription];
+    }
+    
+    Settings *settingsData =    [settingsDataArray count] != 0 ?
+                                [settingsDataArray objectAtIndex:0] :
+                                [[Settings alloc] initWithContext:self.context];
+    
+    int32_t mask = 255;
+    
+    int32_t themeRedColor   = [settingsDataArray count] != 0 ? settingsData.themeColor >> 16         : 157;
+    int32_t themeGreenColor = [settingsDataArray count] != 0 ? (settingsData.themeColor >> 8) & mask : 35;
+    int32_t themeBlueColor  = [settingsDataArray count] != 0 ? settingsData.themeColor & mask        : 245;
+    
+    int32_t fontRedColor   = [settingsDataArray count] != 0 ? settingsData.fontColor >> 16         : 255;
+    int32_t fontGreenColor = [settingsDataArray count] != 0 ? (settingsData.fontColor >> 8) & mask : 255;
+    int32_t fontBlueColor  = [settingsDataArray count] != 0 ? settingsData.fontColor & mask        : 255;
+    
+    UIColor *themeColor = [UIColor colorWithRed:(CGFloat)themeRedColor / 255
+                                          green:(CGFloat)themeGreenColor / 255
+                                           blue:(CGFloat)themeBlueColor / 255
+                                          alpha:1.0f];
+    UIColor *fontColor = [UIColor colorWithRed:(CGFloat)fontRedColor / 255
+                                         green:(CGFloat)fontGreenColor / 255
+                                          blue:(CGFloat)fontBlueColor / 255
+                                         alpha:1.0f];
     [self applyThemeWithColor:themeColor fontColor:fontColor];
+    
+    if ([settingsDataArray count] == 0) {
+        int32_t themeRGBColorBitwiseMask = (themeRedColor << 16) | (themeGreenColor << 8) | (themeBlueColor);
+        int32_t fontRGBColorBitwiseMask = (fontRedColor << 16) | (fontGreenColor << 8) | (fontBlueColor);
+        
+        Settings *settingsData = [[Settings alloc] initWithContext:self.context];
+        settingsData.themeColor = themeRGBColorBitwiseMask;
+        settingsData.fontColor = fontRGBColorBitwiseMask;
+        settingsData.isRotate = YES;
+        settingsData.isTranslationByEnter = NO;
+    }
+    
+    [self.context save:nil];
 }
 
 

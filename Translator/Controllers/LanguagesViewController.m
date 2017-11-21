@@ -1,6 +1,9 @@
 #import "LanguagesViewController.h"
 #import "../Models/TranslatorAPI.h"
 #import "TranslateTabViewController.h"
+#import "SettingsTabTableViewController.h"
+#import "../Models/Settings/Settings+CoreDataClass.h"
+#import "../Models/CoreDataManager.h"
 
 
 NSString* const LanguagesViewControllerCellDidSelectNotification = @"LanguagesViewControllerCellDidSelectNotification";
@@ -25,11 +28,20 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
     
     TranslatorAPI *translatorAPI = [TranslatorAPI api];
     [translatorAPI availableLanguages];
+    
+    // initial theme (from Core Data)
+    Settings *settingsData = [[self.context executeFetchRequest:[Settings fetchRequest] error:nil] objectAtIndex:0];
+    
+    UIColor *themeColor = [CoreDataManager colorFromBitwiseMask:settingsData.themeColor];
+    UIColor *fontColor = [CoreDataManager colorFromBitwiseMask:settingsData.fontColor];
+    [self applyThemeWithColor:themeColor fontColor:fontColor];
 }
 
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:TranslatorAPIAvailableLanguagesDidLoadNotification
+                                                  object:nil];
 }
 
 
@@ -42,6 +54,11 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     [self viewWillTransitionToSize:[[UIScreen mainScreen] bounds].size withTransitionCoordinator:nil];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
 }
 
 
@@ -214,5 +231,12 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
+- (void)applyThemeWithColor:(UIColor *)color fontColor:(UIColor *)fontColor {
+    self.topBar.backgroundColor = color;
+    
+    [self.cancelButton setTitleColor:fontColor forState:UIControlStateNormal];
+    [self.titleLabel setTextColor:fontColor];
+}
 
 @end

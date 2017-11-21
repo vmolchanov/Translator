@@ -9,5 +9,7 @@
 - (NSManagedObjectContext *)managedObjectContext;
 
 + (CoreDataManager *)defaultManager;
++ (UIColor *)colorFromBitwiseMask:(int32_t)bitwiseMask;
++ (int32_t)bitwiseMaskByRedColor:(int32_t)red greenColor:(int32_t)green blueColor:(int32_t)blue;
 
 @end
