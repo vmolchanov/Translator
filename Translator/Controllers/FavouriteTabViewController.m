@@ -4,6 +4,7 @@
 #import "SettingsTabTableViewController.h"
 #import "../Models/CoreDataManager.h"
 #import "../Models/Settings/Settings+CoreDataClass.h"
+#import "../Models/Favourite/Favourite+CoreDataClass.h"
 
 NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"FavouriteTabViewControllerFavouritesHasPhaseNotification";
 
@@ -52,6 +53,18 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     UIColor *themeColor = [CoreDataManager colorFromBitwiseMask:settingsData.themeColor];
     UIColor *fontColor = [CoreDataManager colorFromBitwiseMask:settingsData.fontColor];
     [self applyThemeWithColor:themeColor fontColor:fontColor];
+    
+    // load favourites from Core Data
+    NSArray *favourites = [self.context executeFetchRequest:[Favourite fetchRequest] error:nil];
+    
+    for (Favourite *favourite in favourites) {
+        NSDictionary *favouriteItem = @{@"sourcePhrase": favourite.sourceText,
+                                        @"translationPhrase": favourite.translationText,
+                                        @"sourceLangAbbr": favourite.sourceLanguageAbbr,
+                                        @"translationLangAbbr": favourite.translationLanguageAbbr
+                                        };
+        [self.favourites addObject:favouriteItem];
+    }
 }
 
 
@@ -128,13 +141,23 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     NSDictionary *infoAboutTranslation = [notification.userInfo
                                           objectForKey:TranslationTabViewControllerInfoAboutTranslationUserInfoKey];
     [self.favourites addObject:infoAboutTranslation];
+    
+    Favourite *favouriteData = [[Favourite alloc] initWithContext:self.context];
+    favouriteData.sourceText = [infoAboutTranslation objectForKey:@"sourcePhrase"];
+    favouriteData.translationText = [infoAboutTranslation objectForKey:@"translationPhrase"];
+    favouriteData.sourceLanguageAbbr = [infoAboutTranslation objectForKey:@"sourceLangAbbr"];
+    favouriteData.translationLanguageAbbr = [infoAboutTranslation objectForKey:@"translationLangAbbr"];
+    
+    [self.context save:nil];
 }
 
 
 - (void)removeFromFavouriteNotification:(NSNotification *)notification {
     NSDictionary *infoAboutTranslation = [notification.userInfo
                                           objectForKey:TranslationTabViewControllerInfoAboutTranslationUserInfoKey];
+    [self deleteFavouriteItemFromCoreData:infoAboutTranslation];
     [self.favourites removeObject:infoAboutTranslation];
+    [self.context save:nil];
 }
 
 
@@ -177,10 +200,12 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
 
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self deleteFavouriteItemFromCoreData:[self.favourites objectAtIndex:indexPath.row]];
     [self.favourites removeObjectAtIndex:indexPath.row];
     [tableView beginUpdates];
     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     [tableView endUpdates];
+    [self.context save:nil];
     
     __weak typeof (self) weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -206,6 +231,22 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     [self.topBar setBackgroundColor:color];
     self.topBarTitleLabel.textColor = fontColor;
     [self.clearButton setTitleColor:fontColor forState:UIControlStateNormal];
+}
+
+
+- (void)deleteFavouriteItemFromCoreData:(NSDictionary *)item {
+    NSArray *favourites = [self.context executeFetchRequest:[Favourite fetchRequest] error:nil];
+    
+    for (Favourite *favourite in favourites) {
+        if ([favourite.sourceText isEqualToString:[item objectForKey:@"sourcePhrase"]] &&
+            [favourite.translationText isEqualToString:[item objectForKey:@"translationPhrase"]] &&
+            [favourite.sourceLanguageAbbr isEqualToString:[item objectForKey:@"sourceLangAbbr"]] &&
+            [favourite.translationLanguageAbbr isEqualToString:[item objectForKey:@"translationLangAbbr"]]) {
+            
+            [self.context deleteObject:favourite];
+            break;
+        }
+    }
 }
 
 @end
