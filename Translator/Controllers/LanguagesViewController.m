@@ -52,44 +52,6 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
-    [self viewWillTransitionToSize:[[UIScreen mainScreen] bounds].size withTransitionCoordinator:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:YES];
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    if (size.width > size.height) {
-        [self view:self.topBar
-         withWidth:size.width
-            height:self.topBar.bounds.size.height
-                 x:0
-                 y:0];
-        
-        [self view:self.tableView
-         withWidth:size.width
-            height:size.height - self.topBar.bounds.size.height
-                 x:0
-                 y:self.topBar.bounds.size.height];
-        
-    } else {
-        [self view:self.topBar
-         withWidth:size.width
-            height:self.topBar.bounds.size.height
-                 x:0
-                 y:0];
-        
-        [self view:self.tableView
-         withWidth:size.width
-            height:size.height - self.topBar.bounds.size.height
-                 x:0
-                 y:self.topBar.bounds.size.height];
-    }
-}
-
 #pragma mark - Actions
 
 - (IBAction)closeModalAction:(UIButton *)sender {
