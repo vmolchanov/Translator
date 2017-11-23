@@ -1,13 +1,15 @@
-#import "TranslateTabViewController.h"
 #import "UIColor+Compare.h"
 #import "UIImage+Compare.h"
-#import "LanguagesViewController.h"
-#import "TranslatorAPI.h"
-#import "FavouriteTabViewController.h"
-#import "SettingsTabTableViewController.h"
+
+#import "../Models/TranslatorAPI.h"
 #import "../Models/CoreDataManager.h"
 #import "../Models/Translation/Translation+CoreDataClass.h"
 #import "../Models/Settings/Settings+CoreDataClass.h"
+
+#import "TranslateTabViewController.h"
+#import "LanguagesViewController.h"
+#import "FavouriteTabViewController.h"
+#import "SettingsTabTableViewController.h"
 
 NSString* const TranslationTabViewControllerCheckTranslationNotification = @"TranslationTabViewControllerCheckTranslationNotification";
 NSString* const TranslationTabViewControllerAddToFavouriteNotification = @"TranslationTabViewControllerAddToFavouriteNotification";
@@ -15,7 +17,6 @@ NSString* const TranslationTabViewControllerRemoveFromFavouriteNotification = @"
 
 NSString* const TranslationTabViewControllerTranslationUserInfoKey = @"TranslationTabViewControllerTranslationUserInfoKey";
 NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"TranslationTabViewControllerInfoAboutTranslationUserInfoKey";
-
 
 @interface TranslateTabViewController ()
 
@@ -27,6 +28,14 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
 @end
 
 @implementation TranslateTabViewController
+
+#pragma mark - Lifecycle
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - View controller lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -81,7 +90,6 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     }
     
     // initial theme
-    
     NSError *settingsDataError = nil;
     NSArray *settingsDataArray = [self.context executeFetchRequest:[Settings fetchRequest] error:&settingsDataError];
     if (settingsDataError) {
@@ -131,17 +139,10 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     [self.context save:nil];
 }
 
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
@@ -170,7 +171,6 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     }
 }
 
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
     
@@ -179,7 +179,6 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
                                                  name:SettingsTabTableViewControllerThemeDidChangeNotification
                                                object:nil];
 }
-
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     static const CGFloat viewOffset = 5.0f;
@@ -319,9 +318,7 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     }
 }
 
-
 #pragma mark - Static methods
-
 
 + (CGFloat)label:(UILabel *)label heightForText:(NSString *)text {
     
@@ -337,9 +334,7 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     return CGRectGetHeight(rect);
 }
 
-
 #pragma mark - Actions
-
 
 - (IBAction)clearTextViewAction:(UIButton *)sender {
     [self textView:self.inputTextView setText:self.placeholderText color:self.placeholderColor];
@@ -347,17 +342,14 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     [self setOutputLabelWithText:@"" favouriteButtonAsHidden:YES clipboardButtonAsHidden:YES];
 }
 
-
 - (IBAction)swapLanguagesAction:(UIButton *)sender {
     [self swapLanguages];
 }
-
 
 - (IBAction)addToClipboardAction:(UIButton *)sender {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = self.outputLabel.text;
 }
-
 
 - (IBAction)addToFavouriteAction:(UIButton *)sender {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -384,15 +376,12 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     }
 }
 
-
 - (void)endEditingAction {
     [self.inputView endEditing:YES];
     [self.outputView endEditing:YES];
 }
 
-
 #pragma mark - Segue
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     self.clickedButton = sender;
@@ -403,9 +392,7 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
                                                object:nil];
 }
 
-
 #pragma mark - Notification
-
 
 - (void)setNewLanguageNotification:(NSNotification *)notification {
     NSDictionary *userInfo = [notification.userInfo objectForKey:LanguagesViewControllerChosenLanguageUserInfoKey];
@@ -442,7 +429,6 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     [self.context save:nil];
 }
 
-
 - (void)setTranslationNotification:(NSNotification *)notification {
     NSString *translation = [[notification.userInfo objectForKey:TranslatorAPITranslationTextUserInfoKey] objectAtIndex:0];
     
@@ -452,7 +438,6 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
         [self setStarIcon];
     });
 }
-
 
 - (void)detectedOtherSourceLanguageNotification:(NSNotification *)notification {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -465,7 +450,6 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     TranslatorAPI *translateAPI = [TranslatorAPI api];
     [translateAPI availableLanguages];
 }
-
 
 - (void)setDetectedSourceLanguageNotification:(NSNotification *)notification {
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -501,7 +485,6 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     }
 }
 
-
 - (void)favouritesHasPhraseNotification:(NSNotification *)notification {
     __weak typeof (self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -510,16 +493,13 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     });
 }
 
-
 - (void)themeDidChangeNotification:(NSNotification *)notification {
     NSDictionary *userInfo = [notification.userInfo objectForKey:SettingsTabTableViewControllerNewThemeUserInfoKey];
     [self applyThemeWithColor:[userInfo objectForKey:@"themeColor"]
                     fontColor:[userInfo objectForKey:@"fontColor"]];
 }
 
-
 #pragma mark - UITextViewDelegate
-
 
 - (void)textViewDidChange:(UITextView *)textView {
     TranslatorAPI *translatorAPI = [TranslatorAPI api];
@@ -547,20 +527,16 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     }
 }
 
-
 #pragma mark - Private methods
-
 
 - (void)textView:(UITextView *)textView setText:(NSString *)text color:(UIColor *)color {
     textView.text = text;
     textView.textColor = color;
 }
 
-
 - (BOOL)textViewHavePlaceholder:(UITextView *)textView {
     return [self.inputTextView.textColor isEqualToColor:self.placeholderColor];
 }
-
 
 - (void)setOutputLabelWithText:(NSString *)text
        favouriteButtonAsHidden:(BOOL)fbhide
@@ -579,7 +555,6 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, labelHeight);
 }
-
 
 - (void)swapLanguages {
     NSString *temp = self.sourceLanguageButton.titleLabel.text;
@@ -601,7 +576,6 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     [self.context save:nil];
 }
 
-
 - (void)setStarIcon {
     [self.addToFavouriteButton setImage:[UIImage imageNamed:@"starIcon"]
                                forState:UIControlStateNormal];
@@ -614,7 +588,6 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
                       object:nil
                     userInfo:userInfo];
 }
-
 
 - (void)applyThemeWithColor:(UIColor *)color fontColor:(UIColor *)fontColor {
     self.languagesBar.backgroundColor = color;

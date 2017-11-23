@@ -11,7 +11,6 @@
 		BC2957A41FBB32750007099B /* FavouriteTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2957A31FBB32750007099B /* FavouriteTabViewController.m */; };
 		BC2957A91FBB5A3C0007099B /* UIImage+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2957A81FBB5A3C0007099B /* UIImage+Compare.m */; };
 		BC2957AC1FBCD14E0007099B /* SettingsTabTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2957AB1FBCD14E0007099B /* SettingsTabTableViewController.m */; };
-		BC60CD781FBDCEB100B107FD /* CustomNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC60CD771FBDCEB100B107FD /* CustomNavigationViewController.m */; };
 		BC71E1691FB7759600198775 /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC71E1681FB7759600198775 /* CommonViewController.m */; };
 		BC7D879E1FC21BFC0069D88D /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D879D1FC21BFC0069D88D /* CoreDataManager.m */; };
 		BC7D87AB1FC223050069D88D /* Favourite+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D87A01FC223050069D88D /* Favourite+CoreDataClass.m */; };
@@ -42,8 +41,6 @@
 		BC2957A81FBB5A3C0007099B /* UIImage+Compare.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Compare.m"; sourceTree = "<group>"; };
 		BC2957AA1FBCD14E0007099B /* SettingsTabTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsTabTableViewController.h; sourceTree = "<group>"; };
 		BC2957AB1FBCD14E0007099B /* SettingsTabTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsTabTableViewController.m; sourceTree = "<group>"; };
-		BC60CD761FBDCEB100B107FD /* CustomNavigationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomNavigationViewController.h; sourceTree = "<group>"; };
-		BC60CD771FBDCEB100B107FD /* CustomNavigationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationViewController.m; sourceTree = "<group>"; };
 		BC71E1671FB7759600198775 /* CommonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonViewController.h; sourceTree = "<group>"; };
 		BC71E1681FB7759600198775 /* CommonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
 		BC7D879C1FC21BFC0069D88D /* CoreDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
@@ -139,8 +136,6 @@
 			children = (
 				BC71E1671FB7759600198775 /* CommonViewController.h */,
 				BC71E1681FB7759600198775 /* CommonViewController.m */,
-				BC60CD761FBDCEB100B107FD /* CustomNavigationViewController.h */,
-				BC60CD771FBDCEB100B107FD /* CustomNavigationViewController.m */,
 				BC2957A51FBB41BE0007099B /* FavouriteTabViewController.h */,
 				BC2957A31FBB32750007099B /* FavouriteTabViewController.m */,
 				BCA9B17D1FB2599B00CA2F5A /* LanguagesViewController.h */,
@@ -291,7 +286,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC60CD781FBDCEB100B107FD /* CustomNavigationViewController.m in Sources */,
 				BC7D87B01FC223050069D88D /* Settings+CoreDataProperties.m in Sources */,
 				BCA9B1691FB10AE200CA2F5A /* TabBarViewController.m in Sources */,
 				BCA9B17C1FB1D01500CA2F5A /* UIColor+Compare.m in Sources */,

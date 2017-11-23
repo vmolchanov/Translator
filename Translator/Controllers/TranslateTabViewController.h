@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+
 #import "CommonViewController.h"
 
 extern NSString* const TranslationTabViewControllerCheckTranslationNotification;
@@ -7,7 +8,6 @@ extern NSString* const TranslationTabViewControllerRemoveFromFavouriteNotificati
 
 extern NSString* const TranslationTabViewControllerTranslationUserInfoKey;
 extern NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey;
-
 
 @interface TranslateTabViewController : CommonViewController <UITextViewDelegate>
 
@@ -28,7 +28,6 @@ extern NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoK
 - (IBAction)swapLanguagesAction:(UIButton *)sender;
 - (IBAction)addToClipboardAction:(UIButton *)sender;
 - (IBAction)addToFavouriteAction:(UIButton *)sender;
-
 
 @property (strong, nonatomic) NSString *sourceLanguageAbbr;
 @property (strong, nonatomic) NSString *translationLanguageAbbr;

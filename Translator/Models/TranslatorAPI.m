@@ -18,6 +18,8 @@ NSString* const TranslatorAPIOtherSourceLanguageUserInfoKey = @"TranslatorAPIOth
 
 @implementation TranslatorAPI
 
+#pragma mark - Lifecycle
+
 - (instancetype)init {
     self = [super init];
     
@@ -29,6 +31,7 @@ NSString* const TranslatorAPIOtherSourceLanguageUserInfoKey = @"TranslatorAPIOth
     return self;
 }
 
+#pragma mark - API
 
 - (void)availableLanguages {
     NSString *ui = @"ru";
@@ -52,7 +55,7 @@ NSString* const TranslatorAPIOtherSourceLanguageUserInfoKey = @"TranslatorAPIOth
         id json = [NSJSONSerialization JSONObjectWithData:data
                                                   options:NSJSONReadingMutableContainers
                                                     error:nil];
-        // notification
+        // Notification
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[json objectForKey:@"langs"]
                                                              forKey:TranslatorAPIAvailableLanguagesUserInfoKey];
         
@@ -66,7 +69,6 @@ NSString* const TranslatorAPIOtherSourceLanguageUserInfoKey = @"TranslatorAPIOth
     self.dataTask = [self.session dataTaskWithRequest:request completionHandler:completionHandler];
     [self.dataTask resume];
 }
-
 
 - (void)translateText:(NSString *)text from:(NSString *)sourceLanguage to:(NSString *)translationLanguage {
     text = [text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
@@ -130,6 +132,7 @@ NSString* const TranslatorAPIOtherSourceLanguageUserInfoKey = @"TranslatorAPIOth
     [self.dataTask resume];
 }
 
+#pragma mark - Convenience constructor
 
 + (TranslatorAPI *)api {
     return [[TranslatorAPI alloc] init];

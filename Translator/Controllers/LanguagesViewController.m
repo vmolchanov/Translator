@@ -1,14 +1,14 @@
-#import "LanguagesViewController.h"
 #import "../Models/TranslatorAPI.h"
-#import "TranslateTabViewController.h"
-#import "SettingsTabTableViewController.h"
 #import "../Models/Settings/Settings+CoreDataClass.h"
 #import "../Models/CoreDataManager.h"
 
+#import "LanguagesViewController.h"
+#import "TranslateTabViewController.h"
+#import "SettingsTabTableViewController.h"
 
 NSString* const LanguagesViewControllerCellDidSelectNotification = @"LanguagesViewControllerCellDidSelectNotification";
-NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesViewControllerChosenLanguageUserInfoKey";
 
+NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesViewControllerChosenLanguageUserInfoKey";
 
 @interface LanguagesViewController ()
 
@@ -17,6 +17,16 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
 @end
 
 @implementation LanguagesViewController
+
+#pragma mark - Lifecycle
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:TranslatorAPIAvailableLanguagesDidLoadNotification
+                                                  object:nil];
+}
+
+#pragma mark - View controller lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,30 +47,19 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
     [self applyThemeWithColor:themeColor fontColor:fontColor];
 }
 
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:TranslatorAPIAvailableLanguagesDidLoadNotification
-                                                  object:nil];
-}
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     [self viewWillTransitionToSize:[[UIScreen mainScreen] bounds].size withTransitionCoordinator:nil];
 }
 
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
 }
-
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     if (size.width > size.height) {
@@ -91,27 +90,21 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
     }
 }
 
-
 #pragma mark - Actions
-
 
 - (IBAction)closeModalAction:(UIButton *)sender {
     [self closeModal];
 }
 
-
 #pragma mark - UITableViewDataSourse
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.filteredLanguages count];
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"Cell";
@@ -129,9 +122,7 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
     return cell;
 }
 
-
 #pragma mark - UITableViewDelegate
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *selectedCellText = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
@@ -159,9 +150,7 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
     [self closeModal];
 }
 
-
 #pragma mark - UISearchBarDelegate
-
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if ([searchText length] == 0) {
@@ -184,20 +173,16 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
     [self.tableView reloadData];
 }
 
-
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     [searchBar setShowsCancelButton:YES animated:YES];
 }
-
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
     [searchBar setShowsCancelButton:NO animated:YES];
 }
 
-
 #pragma mark - Notifications
-
 
 - (void)languagesLoadedNotification:(NSNotification *)notification {
     NSDictionary *userInfo = [notification.userInfo objectForKey:TranslatorAPIAvailableLanguagesUserInfoKey];
@@ -223,14 +208,11 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesVi
     });
 }
 
-
 #pragma mark - Private methods
-
 
 - (void)closeModal {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 - (void)applyThemeWithColor:(UIColor *)color fontColor:(UIColor *)fontColor {
     self.topBar.backgroundColor = color;

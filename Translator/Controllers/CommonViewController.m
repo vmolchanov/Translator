@@ -1,6 +1,6 @@
-#import "CommonViewController.h"
 #import "../Models/CoreDataManager.h"
 
+#import "CommonViewController.h"
 
 @interface CommonViewController ()
 
@@ -13,12 +13,10 @@
     // Do any additional setup after loading the view.
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (NSManagedObjectContext *)context {
     if (self->_context == nil) {
@@ -27,7 +25,6 @@
     
     return self->_context;
 }
-
 
 - (void)view:(UIView *)view withWidth:(CGFloat)width height:(CGFloat)height x:(CGFloat)x y:(CGFloat)y {
     CGRect inputViewBounds = view.bounds;

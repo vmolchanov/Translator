@@ -1,13 +1,14 @@
-#import "FavouriteTabViewController.h"
-#import "FavouriteTableViewCell.h"
-#import "TranslateTabViewController.h"
-#import "SettingsTabTableViewController.h"
 #import "../Models/CoreDataManager.h"
 #import "../Models/Settings/Settings+CoreDataClass.h"
 #import "../Models/Favourite/Favourite+CoreDataClass.h"
 
-NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"FavouriteTabViewControllerFavouritesHasPhaseNotification";
+#import "FavouriteTableViewCell.h"
 
+#import "FavouriteTabViewController.h"
+#import "TranslateTabViewController.h"
+#import "SettingsTabTableViewController.h"
+
+NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"FavouriteTabViewControllerFavouritesHasPhaseNotification";
 
 @interface FavouriteTabViewController ()
 
@@ -16,6 +17,8 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
 @end
 
 @implementation FavouriteTabViewController
+
+#pragma mark - Lifecycle
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -40,6 +43,7 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     return self;
 }
 
+#pragma mark - View controller lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,12 +71,10 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     }
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
@@ -80,7 +82,6 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     [self setAlphaForTableView:self.tableView];
     [self.tableView reloadData];
 }
-
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
@@ -91,9 +92,7 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
                                                object:nil];
 }
 
-
 #pragma mark - Actions
-
 
 - (IBAction)clearFavouriteAction:(UIButton *)sender {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
@@ -118,9 +117,7 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-
 #pragma mark - Notification
-
 
 - (void)checkTranslationNotification:(NSNotification *)notification {
     NSString *phrase = [notification.userInfo objectForKey:TranslationTabViewControllerTranslationUserInfoKey];
@@ -136,7 +133,6 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     }
 }
 
-
 - (void)addToFavouriteNotification:(NSNotification *)notification {
     NSDictionary *infoAboutTranslation = [notification.userInfo
                                           objectForKey:TranslationTabViewControllerInfoAboutTranslationUserInfoKey];
@@ -151,7 +147,6 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     [self.context save:nil];
 }
 
-
 - (void)removeFromFavouriteNotification:(NSNotification *)notification {
     NSDictionary *infoAboutTranslation = [notification.userInfo
                                           objectForKey:TranslationTabViewControllerInfoAboutTranslationUserInfoKey];
@@ -160,21 +155,17 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     [self.context save:nil];
 }
 
-
 - (void)themeDidChangeNotification:(NSNotification *)notification {
     NSDictionary *userInfo = [notification.userInfo objectForKey:SettingsTabTableViewControllerNewThemeUserInfoKey];
     [self applyThemeWithColor:[userInfo objectForKey:@"themeColor"]
                     fontColor:[userInfo objectForKey:@"fontColor"]];
 }
 
-
 #pragma mark - UITableViewDataSource
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.favourites count];
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *favouriteCellIdentifier = @"favouriteCell";
@@ -193,11 +184,9 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     return cell;
 }
 
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
-
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [self deleteFavouriteItemFromCoreData:[self.favourites objectAtIndex:indexPath.row]];
@@ -213,26 +202,21 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     });
 }
 
-
 #pragma mark - UITableViewDelegate
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65.0f;
 }
 
-
 - (void)setAlphaForTableView:(UITableView *)tableView {
     tableView.alpha = [self.favourites count] ? 1.0f : 0.0f;
 }
-
 
 - (void)applyThemeWithColor:(UIColor *)color fontColor:(UIColor *)fontColor {
     [self.topBar setBackgroundColor:color];
     self.topBarTitleLabel.textColor = fontColor;
     [self.clearButton setTitleColor:fontColor forState:UIControlStateNormal];
 }
-
 
 - (void)deleteFavouriteItemFromCoreData:(NSDictionary *)item {
     NSArray *favourites = [self.context executeFetchRequest:[Favourite fetchRequest] error:nil];

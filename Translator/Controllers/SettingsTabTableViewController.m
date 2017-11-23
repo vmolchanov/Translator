@@ -1,11 +1,11 @@
-#import "SettingsTabTableViewController.h"
 #import "../Models/CoreDataManager.h"
 #import "../Models/Settings/Settings+CoreDataClass.h"
+
+#import "SettingsTabTableViewController.h"
 
 NSString* const SettingsTabTableViewControllerThemeDidChangeNotification = @"SettingsTabTableViewControllerThemeDidChangeNotification";
 
 NSString* const SettingsTabTableViewControllerNewThemeUserInfoKey = @"SettingsTabTableViewControllerNewThemeUserInfoKey";
-
 
 enum {
     BlackTheme = 0,
@@ -25,12 +25,13 @@ enum {
 
 @implementation SettingsTabTableViewController
 
+#pragma mark - View controller lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.allowsSelection = NO;
-//    [[self.themeColorButtons objectAtIndex:2] setSelected:YES];
     
     // initial theme
     Settings *settingsData = [[self.context executeFetchRequest:[Settings fetchRequest]
@@ -47,15 +48,12 @@ enum {
     }
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
 #pragma mark - Core Data
-
 
 - (NSManagedObjectContext *)context {
     if (self->_context == nil) {
@@ -65,9 +63,7 @@ enum {
     return self->_context;
 }
 
-
 #pragma mark - Actions
-
 
 - (IBAction)chooseThemeAction:(UIButton *)sender {
     for (UIButton *button in self.themeColorButtons) {
@@ -144,19 +140,15 @@ enum {
                     userInfo:userInfo];
 }
 
-
 #pragma mark - Private methods
-
 
 - (void)themeColorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha {
     self.themeColor = [UIColor colorWithRed:red / 255.0f green:green / 255.0f blue:blue / 255.0f alpha:alpha];
 }
 
-
 - (void)fontColorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha {
     self.fontColor = [UIColor colorWithRed:red / 255.0f green:green / 255.0f blue:blue / 255.0f alpha:alpha];
 }
-
 
 - (void)applyThemeWithColor:(UIColor *)color fontColor:(UIColor *)fontColor {
     self.navigationController.navigationBar.barTintColor = color;

@@ -1,16 +1,16 @@
 #import <UIKit/UIKit.h>
+
 #import "CoreDataManager.h"
 
-
 @implementation CoreDataManager
+
+#pragma mark - Getter
 
 - (NSManagedObjectContext *)managedObjectContext {
     return self.persistentContainer.viewContext;
 }
 
-
 #pragma mark - Core Data stack
-
 
 @synthesize persistentContainer = _persistentContainer;
 
@@ -42,9 +42,7 @@
     return _persistentContainer;
 }
 
-
 #pragma mark - Core Data Saving support
-
 
 - (void)saveContext {
     NSManagedObjectContext *context = self.persistentContainer.viewContext;
@@ -57,9 +55,7 @@
     }
 }
 
-
 #pragma mark - Core Data singleton
-
 
 + (CoreDataManager *)defaultManager {
     static CoreDataManager *dataManager = nil;
@@ -72,6 +68,7 @@
     return dataManager;
 }
 
+#pragma mark - Static methods
 
 + (UIColor *)colorFromBitwiseMask:(int32_t)bitwiseMask {
     int32_t mask = 255;
@@ -85,7 +82,6 @@
                             blue:(CGFloat)blue / 255
                            alpha:1.0f];
 }
-
 
 + (int32_t)bitwiseMaskByRedColor:(int32_t)red greenColor:(int32_t)green blueColor:(int32_t)blue {
     return (red << 16) | (green << 8) | blue;

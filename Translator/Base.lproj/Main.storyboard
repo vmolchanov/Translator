@@ -525,7 +525,7 @@
         <!--Settings navigation controller-->
         <scene sceneID="EdA-2K-K26">
             <objects>
-                <navigationController title="Settings navigation controller" automaticallyAdjustsScrollViewInsets="NO" id="nXu-8P-J7U" customClass="CustomNavigationViewController" sceneMemberID="viewController">
+                <navigationController title="Settings navigation controller" automaticallyAdjustsScrollViewInsets="NO" id="nXu-8P-J7U" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="settings" selectedImage="settings" id="dV6-bh-4ut">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
