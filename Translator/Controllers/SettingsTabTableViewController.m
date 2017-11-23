@@ -3,9 +3,11 @@
 
 #import "SettingsTabTableViewController.h"
 
-NSString* const SettingsTabTableViewControllerThemeDidChangeNotification = @"SettingsTabTableViewControllerThemeDidChangeNotification";
+NSString* const SettingsTabTableViewControllerThemeDidChangeNotification =
+                @"SettingsTabTableViewControllerThemeDidChangeNotification";
 
-NSString* const SettingsTabTableViewControllerNewThemeUserInfoKey = @"SettingsTabTableViewControllerNewThemeUserInfoKey";
+NSString* const SettingsTabTableViewControllerNewThemeUserInfoKey =
+                @"SettingsTabTableViewControllerNewThemeUserInfoKey";
 
 enum {
     BlackTheme = 0,

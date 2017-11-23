@@ -8,7 +8,8 @@
 #import "TranslateTabViewController.h"
 #import "SettingsTabTableViewController.h"
 
-NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"FavouriteTabViewControllerFavouritesHasPhaseNotification";
+NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification =
+                @"FavouriteTabViewControllerFavouritesHasPhaseNotification";
 
 @interface FavouriteTabViewController ()
 
@@ -172,7 +173,8 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     
     FavouriteTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:favouriteCellIdentifier];
     if (!cell) {
-        cell = [[FavouriteTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:favouriteCellIdentifier];
+        cell = [[FavouriteTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                             reuseIdentifier:favouriteCellIdentifier];
     }
     
     NSDictionary *cellContent = [self.favourites objectAtIndex:indexPath.row];
@@ -188,7 +190,10 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification = @"Fav
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView
+    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+     forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [self deleteFavouriteItemFromCoreData:[self.favourites objectAtIndex:indexPath.row]];
     [self.favourites removeObjectAtIndex:indexPath.row];
     [tableView beginUpdates];

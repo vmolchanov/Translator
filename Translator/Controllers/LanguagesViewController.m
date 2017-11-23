@@ -6,9 +6,11 @@
 #import "TranslateTabViewController.h"
 #import "SettingsTabTableViewController.h"
 
-NSString* const LanguagesViewControllerCellDidSelectNotification = @"LanguagesViewControllerCellDidSelectNotification";
+NSString* const LanguagesViewControllerCellDidSelectNotification =
+                @"LanguagesViewControllerCellDidSelectNotification";
 
-NSString* const LanguagesViewControllerChosenLanguageUserInfoKey = @"LanguagesViewControllerChosenLanguageUserInfoKey";
+NSString* const LanguagesViewControllerChosenLanguageUserInfoKey =
+                @"LanguagesViewControllerChosenLanguageUserInfoKey";
 
 @interface LanguagesViewController ()
 

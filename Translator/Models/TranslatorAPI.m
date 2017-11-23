@@ -1,8 +1,11 @@
 #import "TranslatorAPI.h"
 
-NSString* const TranslatorAPIAvailableLanguagesDidLoadNotification = @"TranslatorAPIAvailableLanguagesDidLoadNotification";
-NSString* const TranslatorAPITranslationDidCompleteNotification = @"TranslatorAPITranslationDidCompleteNotification";
-NSString* const TranslatorAPIDetectedOtherSourceLanguageNotification = @"TranslatorAPIDetectedOtherSourceLanguageNotification";
+NSString* const TranslatorAPIAvailableLanguagesDidLoadNotification =
+                @"TranslatorAPIAvailableLanguagesDidLoadNotification";
+NSString* const TranslatorAPITranslationDidCompleteNotification =
+                @"TranslatorAPITranslationDidCompleteNotification";
+NSString* const TranslatorAPIDetectedOtherSourceLanguageNotification =
+                @"TranslatorAPIDetectedOtherSourceLanguageNotification";
 
 NSString* const TranslatorAPIAvailableLanguagesUserInfoKey = @"TranslatorAPIAvailableLanguagesUserInfoKey";
 NSString* const TranslatorAPITranslationTextUserInfoKey = @"TranslatorAPITranslationTextUserInfoKey";
@@ -77,7 +80,8 @@ NSString* const TranslatorAPIOtherSourceLanguageUserInfoKey = @"TranslatorAPIOth
     NSString *options = @"1";
     
     __block NSString *urlString = [NSString stringWithFormat:
-                                   @"https://translate.yandex.net/api/v1.5/tr.json/translate?key=%@&text=%@&lang=%@&options=%@",
+                                   @"https://translate.yandex.net/api/v1.5/tr.json/translate"
+                                   "?key=%@&text=%@&lang=%@&options=%@",
                                    self.key,
                                    text,
                                    lang,

@@ -11,12 +11,17 @@
 #import "FavouriteTabViewController.h"
 #import "SettingsTabTableViewController.h"
 
-NSString* const TranslationTabViewControllerCheckTranslationNotification = @"TranslationTabViewControllerCheckTranslationNotification";
-NSString* const TranslationTabViewControllerAddToFavouriteNotification = @"TranslationTabViewControllerAddToFavouriteNotification";
-NSString* const TranslationTabViewControllerRemoveFromFavouriteNotification = @"TranslationTabViewControllerRemoveFromFavouriteNotification";
+NSString* const TranslationTabViewControllerCheckTranslationNotification =
+                @"TranslationTabViewControllerCheckTranslationNotification";
+NSString* const TranslationTabViewControllerAddToFavouriteNotification =
+                @"TranslationTabViewControllerAddToFavouriteNotification";
+NSString* const TranslationTabViewControllerRemoveFromFavouriteNotification =
+                @"TranslationTabViewControllerRemoveFromFavouriteNotification";
 
-NSString* const TranslationTabViewControllerTranslationUserInfoKey = @"TranslationTabViewControllerTranslationUserInfoKey";
-NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"TranslationTabViewControllerInfoAboutTranslationUserInfoKey";
+NSString* const TranslationTabViewControllerTranslationUserInfoKey =
+                @"TranslationTabViewControllerTranslationUserInfoKey";
+NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
+                @"TranslationTabViewControllerInfoAboutTranslationUserInfoKey";
 
 @interface TranslateTabViewController ()
 
@@ -55,7 +60,8 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     [self setOutputLabelWithText:@"" favouriteButtonAsHidden:YES clipboardButtonAsHidden:YES];
     
     // hide keyboard
-    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditingAction)];
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                         action:@selector(endEditingAction)];
     [self.inputView addGestureRecognizer:gr];
     [self.outputView addGestureRecognizer:gr];
     
@@ -180,7 +186,9 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
                                                object:nil];
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    
     static const CGFloat viewOffset = 5.0f;
     static const CGFloat innerOffset = 16.0f;
     static const CGFloat inputViewHeight = 200.0f;
@@ -189,7 +197,10 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
     static const CGFloat addToFavouriteButtonBottomOffset = 20.0f;
     
     CGFloat langBarHeight = CGRectGetHeight(self.languagesBar.frame);
-    CGFloat favouriteAndClipboardIconDelta = CGRectGetWidth(self.addToFavouriteButton.bounds) - CGRectGetWidth(self.addToClipboardButton.bounds);
+    CGFloat addToFavouriteButtonWidth = CGRectGetWidth(self.addToFavouriteButton.bounds);
+    CGFloat addToClipboardButtonWidth = CGRectGetWidth(self.addToClipboardButton.bounds);
+    CGFloat outputLabelWidth = CGRectGetWidth(self.outputLabel.bounds);
+    CGFloat favouriteAndClipboardIconDelta = addToFavouriteButtonWidth - addToClipboardButtonWidth;
     
     if (size.width > size.height) {
         const CGFloat tabBarHeight = 32.0f;
@@ -225,27 +236,27 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
                  y:innerOffset];
         
         [self view:self.outputLabel
-         withWidth:viewWidth - CGRectGetWidth(self.addToFavouriteButton.bounds) - 2 * innerOffset - outputLabelLeftOffset
+         withWidth:viewWidth - addToFavouriteButtonWidth - 2 * innerOffset - outputLabelLeftOffset
             height:CGRectGetHeight(self.outputLabel.bounds)
                  x:outputLabelLeftOffset
                  y:outputLabelLeftOffset];
         
         [self view:self.scrollView
-         withWidth:CGRectGetWidth(self.outputLabel.bounds) + outputLabelLeftOffset
+         withWidth:outputLabelWidth + outputLabelLeftOffset
             height:viewHeight
                  x:0
                  y:0];
         
         [self view:self.addToFavouriteButton
-         withWidth:CGRectGetWidth(self.addToFavouriteButton.bounds)
+         withWidth:addToFavouriteButtonWidth
             height:CGRectGetHeight(self.addToFavouriteButton.bounds)
-                 x:outputLabelLeftOffset + CGRectGetWidth(self.outputLabel.bounds) + innerOffset
+                 x:outputLabelLeftOffset + outputLabelWidth + innerOffset
                  y:innerOffset];
         
         [self view:self.addToClipboardButton
-         withWidth:CGRectGetWidth(self.addToClipboardButton.bounds)
+         withWidth:addToClipboardButtonWidth
             height:CGRectGetHeight(self.addToClipboardButton.bounds)
-                 x:outputLabelLeftOffset + CGRectGetWidth(self.outputLabel.bounds) + innerOffset + favouriteAndClipboardIconDelta / 2
+                 x:outputLabelLeftOffset + outputLabelWidth + innerOffset + favouriteAndClipboardIconDelta / 2
                  y:innerOffset + CGRectGetHeight(self.addToFavouriteButton.bounds) + addToFavouriteButtonBottomOffset];
         
         [self view:self.languagesBar
@@ -286,27 +297,27 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
                  y:innerOffset];
         
         [self view:self.outputLabel
-         withWidth:viewWidth - CGRectGetWidth(self.addToFavouriteButton.bounds) - 2 * innerOffset - outputLabelLeftOffset
+         withWidth:viewWidth - addToFavouriteButtonWidth - 2 * innerOffset - outputLabelLeftOffset
             height:CGRectGetHeight(self.outputLabel.bounds)
                  x:outputLabelLeftOffset
                  y:outputLabelTopOffset];
         
         [self view:self.scrollView
-         withWidth:CGRectGetWidth(self.outputLabel.bounds) + outputLabelLeftOffset
+         withWidth:outputLabelWidth + outputLabelLeftOffset
             height:CGRectGetHeight(self.outputView.bounds)
                  x:0
                  y:0];
         
         [self view:self.addToFavouriteButton
-         withWidth:CGRectGetWidth(self.addToFavouriteButton.bounds)
+         withWidth:addToFavouriteButtonWidth
             height:CGRectGetHeight(self.addToFavouriteButton.bounds)
-                 x:outputLabelLeftOffset + CGRectGetWidth(self.outputLabel.bounds) + innerOffset
+                 x:outputLabelLeftOffset + outputLabelWidth + innerOffset
                  y:innerOffset];
         
         [self view:self.addToClipboardButton
          withWidth:CGRectGetWidth(self.addToClipboardButton.bounds)
             height:CGRectGetHeight(self.addToClipboardButton.bounds)
-                 x:outputLabelLeftOffset + CGRectGetWidth(self.outputLabel.bounds) + innerOffset + favouriteAndClipboardIconDelta / 2
+                 x:outputLabelLeftOffset + outputLabelWidth + innerOffset + favouriteAndClipboardIconDelta / 2
                  y:innerOffset + CGRectGetHeight(self.addToFavouriteButton.bounds) + addToFavouriteButtonBottomOffset];
         
         [self view:self.languagesBar
@@ -429,7 +440,8 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey = @"
 }
 
 - (void)setTranslationNotification:(NSNotification *)notification {
-    NSString *translation = [[notification.userInfo objectForKey:TranslatorAPITranslationTextUserInfoKey] objectAtIndex:0];
+    NSArray *userInfo = [notification.userInfo objectForKey:TranslatorAPITranslationTextUserInfoKey];
+    NSString *translation = [userInfo objectAtIndex:0];
     
     __weak typeof (self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
