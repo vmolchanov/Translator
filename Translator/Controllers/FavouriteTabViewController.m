@@ -1,4 +1,3 @@
-#import "../Models/CoreDataManager.h"
 #import "../Models/Settings/Settings+CoreDataClass.h"
 #import "../Models/Favourite/Favourite+CoreDataClass.h"
 
@@ -55,8 +54,8 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification =
     Settings *settingsData = [[self.context executeFetchRequest:[Settings fetchRequest]
                                                           error:nil] objectAtIndex:0];
     
-    UIColor *themeColor = [CoreDataManager colorFromBitwiseMask:settingsData.themeColor];
-    UIColor *fontColor = [CoreDataManager colorFromBitwiseMask:settingsData.fontColor];
+    UIColor *themeColor = [Settings colorFromBitwiseMask:settingsData.themeColor];
+    UIColor *fontColor = [Settings colorFromBitwiseMask:settingsData.fontColor];
     [self applyThemeWithColor:themeColor fontColor:fontColor];
     
     // load favourites from Core Data

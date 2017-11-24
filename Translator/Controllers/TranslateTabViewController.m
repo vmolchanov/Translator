@@ -2,7 +2,6 @@
 #import "UIImage+Compare.h"
 
 #import "../Models/TranslatorAPI.h"
-#import "../Models/CoreDataManager.h"
 #import "../Models/Translation/Translation+CoreDataClass.h"
 #import "../Models/Settings/Settings+CoreDataClass.h"
 
@@ -127,12 +126,12 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
     [self applyThemeWithColor:themeColor fontColor:fontColor];
     
     if ([settingsDataArray count] == 0) {
-        int32_t themeRGBColorBitwiseMask = [CoreDataManager bitwiseMaskByRedColor:themeRedColor
-                                                                       greenColor:themeGreenColor
-                                                                        blueColor:themeBlueColor];
-        int32_t fontRGBColorBitwiseMask = [CoreDataManager bitwiseMaskByRedColor:fontRedColor
-                                                                      greenColor:fontGreenColor
-                                                                       blueColor:fontBlueColor];
+        int32_t themeRGBColorBitwiseMask = [Settings bitwiseMaskByRedColor:themeRedColor
+                                                                greenColor:themeGreenColor
+                                                                 blueColor:themeBlueColor];
+        int32_t fontRGBColorBitwiseMask = [Settings bitwiseMaskByRedColor:fontRedColor
+                                                               greenColor:fontGreenColor
+                                                                blueColor:fontBlueColor];
         
         Settings *settingsData = [[Settings alloc] initWithContext:self.context];
         settingsData.themeId = 2;

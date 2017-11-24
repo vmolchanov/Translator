@@ -33,14 +33,14 @@ enum {
     [super viewDidLoad];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tableView.allowsSelection = NO;
+//    self.tableView.allowsSelection = NO;
     
     // initial theme
     Settings *settingsData = [[self.context executeFetchRequest:[Settings fetchRequest]
                                                           error:nil] objectAtIndex:0];
     
-    UIColor *themeColor = [CoreDataManager colorFromBitwiseMask:settingsData.themeColor];
-    UIColor *fontColor = [CoreDataManager colorFromBitwiseMask:settingsData.fontColor];
+    UIColor *themeColor = [Settings colorFromBitwiseMask:settingsData.themeColor];
+    UIColor *fontColor = [Settings colorFromBitwiseMask:settingsData.fontColor];
     [self applyThemeWithColor:themeColor fontColor:fontColor];
     
     for (UIButton *button in self.themeColorButtons) {
@@ -83,43 +83,43 @@ enum {
         case BlackTheme:
             [self themeColorWithRed:0.0f green:0.0f blue:0.0f alpha:0.0f];
             [self fontColorWithRed:255.0f green:255.0f blue:255.0f alpha:1.0f];
-            settingsData.themeColor = [CoreDataManager bitwiseMaskByRedColor:0 greenColor:0 blueColor:0];
-            settingsData.fontColor = [CoreDataManager bitwiseMaskByRedColor:255 greenColor:255 blueColor:255];
+            settingsData.themeColor = [Settings bitwiseMaskByRedColor:0 greenColor:0 blueColor:0];
+            settingsData.fontColor = [Settings bitwiseMaskByRedColor:255 greenColor:255 blueColor:255];
             settingsData.themeId = BlackTheme;
             break;
         case YellowTheme:
             [self themeColorWithRed:248.0f green:231.0f blue:28.0f alpha:1.0f];
             [self fontColorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f];
-            settingsData.themeColor = [CoreDataManager bitwiseMaskByRedColor:248 greenColor:231 blueColor:28];
-            settingsData.fontColor = [CoreDataManager bitwiseMaskByRedColor:0 greenColor:0 blueColor:0];
+            settingsData.themeColor = [Settings bitwiseMaskByRedColor:248 greenColor:231 blueColor:28];
+            settingsData.fontColor = [Settings bitwiseMaskByRedColor:0 greenColor:0 blueColor:0];
             settingsData.themeId = YellowTheme;
             break;
         case PurpleTheme:
             [self themeColorWithRed:157.0f green:35.0f blue:245.0f alpha:1.0f];
             [self fontColorWithRed:255.0f green:255.0f blue:255.0f alpha:1.0f];
-            settingsData.themeColor = [CoreDataManager bitwiseMaskByRedColor:157 greenColor:35 blueColor:245];
-            settingsData.fontColor = [CoreDataManager bitwiseMaskByRedColor:255 greenColor:255 blueColor:255];
+            settingsData.themeColor = [Settings bitwiseMaskByRedColor:157 greenColor:35 blueColor:245];
+            settingsData.fontColor = [Settings bitwiseMaskByRedColor:255 greenColor:255 blueColor:255];
             settingsData.themeId = PurpleTheme;
             break;
         case RedTheme:
             [self themeColorWithRed:253.0f green:76.0f blue:42.0f alpha:1.0f];
             [self fontColorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f];
-            settingsData.themeColor = [CoreDataManager bitwiseMaskByRedColor:253 greenColor:76 blueColor:42];
-            settingsData.fontColor = [CoreDataManager bitwiseMaskByRedColor:0 greenColor:0 blueColor:0];
+            settingsData.themeColor = [Settings bitwiseMaskByRedColor:253 greenColor:76 blueColor:42];
+            settingsData.fontColor = [Settings bitwiseMaskByRedColor:0 greenColor:0 blueColor:0];
             settingsData.themeId = RedTheme;
             break;
         case GreenTheme:
             [self themeColorWithRed:76.0f green:210.0f blue:49.0f alpha:1.0f];
             [self fontColorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f];
-            settingsData.themeColor = [CoreDataManager bitwiseMaskByRedColor:76 greenColor:210 blueColor:49];
-            settingsData.fontColor = [CoreDataManager bitwiseMaskByRedColor:0 greenColor:0 blueColor:0];
+            settingsData.themeColor = [Settings bitwiseMaskByRedColor:76 greenColor:210 blueColor:49];
+            settingsData.fontColor = [Settings bitwiseMaskByRedColor:0 greenColor:0 blueColor:0];
             settingsData.themeId = GreenTheme;
             break;
         case PinkTheme:
             [self themeColorWithRed:247.0f green:105.0f blue:198.0f alpha:1.0f];
             [self fontColorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f];
-            settingsData.themeColor = [CoreDataManager bitwiseMaskByRedColor:247 greenColor:105 blueColor:198];
-            settingsData.fontColor = [CoreDataManager bitwiseMaskByRedColor:0 greenColor:0 blueColor:0];
+            settingsData.themeColor = [Settings bitwiseMaskByRedColor:247 greenColor:105 blueColor:198];
+            settingsData.fontColor = [Settings bitwiseMaskByRedColor:0 greenColor:0 blueColor:0];
             settingsData.themeId = PinkTheme;
             break;
             
@@ -140,6 +140,12 @@ enum {
     [nc postNotificationName:SettingsTabTableViewControllerThemeDidChangeNotification
                       object:nil
                     userInfo:userInfo];
+}
+
+#pragma mark - UITableViewDelegate
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    return indexPath.row == 3 ? indexPath : nil;
 }
 
 #pragma mark - Private methods

@@ -19,6 +19,7 @@
 		BC7D87AE1FC223050069D88D /* Translation+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D87A61FC223050069D88D /* Translation+CoreDataProperties.m */; };
 		BC7D87AF1FC223050069D88D /* Settings+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D87A81FC223050069D88D /* Settings+CoreDataClass.m */; };
 		BC7D87B01FC223050069D88D /* Settings+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D87AA1FC223050069D88D /* Settings+CoreDataProperties.m */; };
+		BC7D87B61FC785AF0069D88D /* AboutProgramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D87B51FC785AF0069D88D /* AboutProgramViewController.m */; };
 		BCA9B1631FB0FBBE00CA2F5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCA9B1621FB0FBBE00CA2F5A /* Assets.xcassets */; };
 		BCA9B1691FB10AE200CA2F5A /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA9B1681FB10AE200CA2F5A /* TabBarViewController.m */; };
 		BCA9B1741FB11BFE00CA2F5A /* TranslateTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA9B1731FB11BFE00CA2F5A /* TranslateTabViewController.m */; };
@@ -57,6 +58,8 @@
 		BC7D87A81FC223050069D88D /* Settings+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Settings+CoreDataClass.m"; sourceTree = "<group>"; };
 		BC7D87A91FC223050069D88D /* Settings+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Settings+CoreDataProperties.h"; sourceTree = "<group>"; };
 		BC7D87AA1FC223050069D88D /* Settings+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Settings+CoreDataProperties.m"; sourceTree = "<group>"; };
+		BC7D87B41FC785AF0069D88D /* AboutProgramViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutProgramViewController.h; sourceTree = "<group>"; };
+		BC7D87B51FC785AF0069D88D /* AboutProgramViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutProgramViewController.m; sourceTree = "<group>"; };
 		BCA9B1621FB0FBBE00CA2F5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCA9B1671FB10AE200CA2F5A /* TabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		BCA9B1681FB10AE200CA2F5A /* TabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 		BCA9B1711FB11BCB00CA2F5A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BC7D87B41FC785AF0069D88D /* AboutProgramViewController.h */,
+				BC7D87B51FC785AF0069D88D /* AboutProgramViewController.m */,
 				BC71E1671FB7759600198775 /* CommonViewController.h */,
 				BC71E1681FB7759600198775 /* CommonViewController.m */,
 				BC2957A51FBB41BE0007099B /* FavouriteTabViewController.h */,
@@ -287,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC7D87B01FC223050069D88D /* Settings+CoreDataProperties.m in Sources */,
+				BC7D87B61FC785AF0069D88D /* AboutProgramViewController.m in Sources */,
 				BCA9B1691FB10AE200CA2F5A /* TabBarViewController.m in Sources */,
 				BCA9B17C1FB1D01500CA2F5A /* UIColor+Compare.m in Sources */,
 				BCA9B17F1FB2599B00CA2F5A /* LanguagesViewController.m in Sources */,

@@ -1,6 +1,5 @@
 #import "../Models/TranslatorAPI.h"
 #import "../Models/Settings/Settings+CoreDataClass.h"
-#import "../Models/CoreDataManager.h"
 
 #import "LanguagesViewController.h"
 #import "TranslateTabViewController.h"
@@ -44,8 +43,8 @@ NSString* const LanguagesViewControllerChosenLanguageUserInfoKey =
     // initial theme (from Core Data)
     Settings *settingsData = [[self.context executeFetchRequest:[Settings fetchRequest] error:nil] objectAtIndex:0];
     
-    UIColor *themeColor = [CoreDataManager colorFromBitwiseMask:settingsData.themeColor];
-    UIColor *fontColor = [CoreDataManager colorFromBitwiseMask:settingsData.fontColor];
+    UIColor *themeColor = [Settings colorFromBitwiseMask:settingsData.themeColor];
+    UIColor *fontColor = [Settings colorFromBitwiseMask:settingsData.fontColor];
     [self applyThemeWithColor:themeColor fontColor:fontColor];
 }
 
