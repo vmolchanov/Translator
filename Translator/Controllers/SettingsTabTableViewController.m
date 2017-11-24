@@ -33,7 +33,6 @@ enum {
     [super viewDidLoad];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-//    self.tableView.allowsSelection = NO;
     
     // initial theme
     Settings *settingsData = [[self.context executeFetchRequest:[Settings fetchRequest]
@@ -140,6 +139,33 @@ enum {
     [nc postNotificationName:SettingsTabTableViewControllerThemeDidChangeNotification
                       object:nil
                     userInfo:userInfo];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 6;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    static const NSInteger rowOfEmptyCell = 4;
+    
+    if (indexPath.row != rowOfEmptyCell) {
+        CGFloat separatorOffsetLeft = 15;
+        UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(separatorOffsetLeft,
+                                                                     CGRectGetMaxY(cell.bounds) - 1,
+                                                                     CGRectGetWidth(cell.bounds) - separatorOffsetLeft,
+                                                                     1)];
+        separator.backgroundColor = [UIColor colorWithRed:220.0f / 255
+                                                    green:219.0f / 255
+                                                     blue:223.0f / 255
+                                                    alpha:1.0f];
+        [cell addSubview:separator];
+    }
+    
+    return cell;
 }
 
 #pragma mark - UITableViewDelegate
