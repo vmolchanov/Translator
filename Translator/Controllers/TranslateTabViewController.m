@@ -192,18 +192,16 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
     static const CGFloat innerOffset = 16.0f;
     static const CGFloat inputViewHeight = 200.0f;
     static const CGFloat outputLabelLeftOffset = 23.0f;
-    static const CGFloat outputLabelTopOffset = 23.0f;
-    static const CGFloat addToFavouriteButtonBottomOffset = 20.0f;
+    static const CGFloat tabBarHeight = 49.0f;
     
     CGFloat langBarHeight = CGRectGetHeight(self.languagesBar.frame);
-    CGFloat addToFavouriteButtonWidth = CGRectGetWidth(self.addToFavouriteButton.bounds);
-    CGFloat addToClipboardButtonWidth = CGRectGetWidth(self.addToClipboardButton.bounds);
     CGFloat outputLabelWidth = CGRectGetWidth(self.outputLabel.bounds);
-    CGFloat favouriteAndClipboardIconDelta = addToFavouriteButtonWidth - addToClipboardButtonWidth;
+    
+    CGRect tabBarBounds = self.tabBarController.tabBar.bounds;
+    tabBarBounds.size.height = 49.0f;
+    self.tabBarController.tabBar.bounds = tabBarBounds;
     
     if (size.width > size.height) {
-        const CGFloat tabBarHeight = 32.0f;
-        
         CGFloat viewHeight = size.height - langBarHeight - 2 * viewOffset - tabBarHeight;
         CGFloat viewWidth = (size.width - 3 * viewOffset) / 2;
         
@@ -234,29 +232,11 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
                  x:2 * innerOffset + inputTextViewWidth
                  y:innerOffset];
         
-        [self view:self.outputLabel
-         withWidth:viewWidth - addToFavouriteButtonWidth - 2 * innerOffset - outputLabelLeftOffset
-            height:CGRectGetHeight(self.outputLabel.bounds)
-                 x:outputLabelLeftOffset
-                 y:outputLabelLeftOffset];
-        
         [self view:self.scrollView
          withWidth:outputLabelWidth + outputLabelLeftOffset
             height:viewHeight
                  x:0
                  y:0];
-        
-        [self view:self.addToFavouriteButton
-         withWidth:addToFavouriteButtonWidth
-            height:CGRectGetHeight(self.addToFavouriteButton.bounds)
-                 x:outputLabelLeftOffset + outputLabelWidth + innerOffset
-                 y:innerOffset];
-        
-        [self view:self.addToClipboardButton
-         withWidth:addToClipboardButtonWidth
-            height:CGRectGetHeight(self.addToClipboardButton.bounds)
-                 x:outputLabelLeftOffset + outputLabelWidth + innerOffset + favouriteAndClipboardIconDelta / 2
-                 y:innerOffset + CGRectGetHeight(self.addToFavouriteButton.bounds) + addToFavouriteButtonBottomOffset];
         
         [self view:self.languagesBar
          withWidth:size.width
@@ -264,8 +244,6 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
                  x:CGRectGetMinX(self.languagesBar.frame)
                  y:CGRectGetMinY(self.languagesBar.frame)];
     } else {
-        const CGFloat tabBarHeight = 49.0f;
-        
         CGFloat viewWidth = size.width - 2 * viewOffset;
         
         CGFloat inputTextViewHeight = inputViewHeight - 2 * innerOffset;
@@ -295,29 +273,11 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
                  x:2 * innerOffset + inputTextViewWidth
                  y:innerOffset];
         
-        [self view:self.outputLabel
-         withWidth:viewWidth - addToFavouriteButtonWidth - 2 * innerOffset - outputLabelLeftOffset
-            height:CGRectGetHeight(self.outputLabel.bounds)
-                 x:outputLabelLeftOffset
-                 y:outputLabelTopOffset];
-        
         [self view:self.scrollView
          withWidth:outputLabelWidth + outputLabelLeftOffset
             height:CGRectGetHeight(self.outputView.bounds)
                  x:0
                  y:0];
-        
-        [self view:self.addToFavouriteButton
-         withWidth:addToFavouriteButtonWidth
-            height:CGRectGetHeight(self.addToFavouriteButton.bounds)
-                 x:outputLabelLeftOffset + outputLabelWidth + innerOffset
-                 y:innerOffset];
-        
-        [self view:self.addToClipboardButton
-         withWidth:CGRectGetWidth(self.addToClipboardButton.bounds)
-            height:CGRectGetHeight(self.addToClipboardButton.bounds)
-                 x:outputLabelLeftOffset + outputLabelWidth + innerOffset + favouriteAndClipboardIconDelta / 2
-                 y:innerOffset + CGRectGetHeight(self.addToFavouriteButton.bounds) + addToFavouriteButtonBottomOffset];
         
         [self view:self.languagesBar
          withWidth:size.width

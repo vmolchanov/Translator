@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -201,7 +202,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view autoresizesSubviews="NO" contentMode="scaleToFill" misplaced="YES" id="RhJ-Kb-ZvP">
+                            <view contentMode="scaleToFill" misplaced="YES" id="RhJ-Kb-ZvP">
                                 <rect key="frame" x="5" y="270" width="365" height="343"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -223,7 +224,7 @@
                                     </scrollView>
                                     <button contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BED-ya-n8E" userLabel="Favourite">
                                         <rect key="frame" x="316" y="16" width="33" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="starIcon"/>
                                         <connections>
                                             <action selector="addToFavouriteAction:" destination="Ivu-ri-lPi" eventType="touchUpInside" id="an6-yV-O4Y"/>
@@ -231,7 +232,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sH5-Tf-2KS" userLabel="Copy">
                                         <rect key="frame" x="319" y="68" width="27" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="copyIcon"/>
                                         <connections>
                                             <action selector="addToClipboardAction:" destination="Ivu-ri-lPi" eventType="touchUpInside" id="WNF-La-tHn"/>
