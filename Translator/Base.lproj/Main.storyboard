@@ -357,7 +357,7 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fV9-fz-JDD" userLabel="Black">
                                                     <rect key="frame" x="165" y="15" width="25" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <size key="titleShadowOffset" width="-1" height="0.0"/>
                                                     <state key="normal" backgroundImage="black"/>
@@ -368,7 +368,7 @@
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="05D-ZW-pIQ" userLabel="Yellow">
                                                     <rect key="frame" x="200" y="15" width="25" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <state key="normal" backgroundImage="yellow"/>
                                                     <state key="selected" backgroundImage="yellowSelected"/>
@@ -378,7 +378,7 @@
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xTC-ql-xu4" userLabel="Red">
                                                     <rect key="frame" x="270" y="15" width="25" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <state key="normal" backgroundImage="red"/>
                                                     <state key="selected" backgroundImage="redSelected"/>
@@ -388,7 +388,7 @@
                                                 </button>
                                                 <button opaque="NO" tag="4" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="O2T-EF-Kra" userLabel="Green">
                                                     <rect key="frame" x="305" y="15" width="25" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <state key="normal" backgroundImage="green"/>
                                                     <state key="selected" backgroundImage="greenSelected"/>
@@ -398,7 +398,7 @@
                                                 </button>
                                                 <button opaque="NO" tag="5" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RtU-Fr-0m8" userLabel="Pink">
                                                     <rect key="frame" x="340" y="15" width="25" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <state key="normal" backgroundImage="pink"/>
                                                     <state key="selected" backgroundImage="pinkSelected"/>
@@ -408,7 +408,7 @@
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Hzr-8M-X1O" userLabel="Purple">
                                                     <rect key="frame" x="235" y="15" width="25" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <state key="normal" backgroundImage="purple"/>
                                                     <state key="selected" backgroundImage="purpleSelected"/>
@@ -435,7 +435,7 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="ZTh-kz-jOO">
                                                     <rect key="frame" x="312" y="12" width="49" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                 </switch>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -456,7 +456,7 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="BM1-Ji-29c">
                                                     <rect key="frame" x="312" y="12" width="49" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                 </switch>
                                             </subviews>
                                         </tableViewCellContentView>

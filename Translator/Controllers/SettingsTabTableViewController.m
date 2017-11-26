@@ -162,6 +162,9 @@ enum {
                                                     green:219.0f / 255
                                                      blue:223.0f / 255
                                                     alpha:1.0f];
+        separator.autoresizingMask =    UIViewAutoresizingFlexibleLeftMargin |
+                                        UIViewAutoresizingFlexibleRightMargin |
+                                        UIViewAutoresizingFlexibleWidth;
         [cell addSubview:separator];
     }
     
