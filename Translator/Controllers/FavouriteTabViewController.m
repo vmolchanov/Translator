@@ -7,9 +7,6 @@
 #import "TranslateTabViewController.h"
 #import "SettingsTabTableViewController.h"
 
-NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification =
-                @"FavouriteTabViewControllerFavouritesHasPhaseNotification";
-
 @interface FavouriteTabViewController ()
 
 @property (strong, nonatomic) NSMutableArray *favourites;
@@ -24,10 +21,6 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification =
     self = [super initWithCoder:aDecoder];
     
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(checkTranslationNotification:)
-                                                     name:TranslationTabViewControllerCheckTranslationNotification
-                                                   object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(addToFavouriteNotification:)
                                                      name:TranslationTabViewControllerAddToFavouriteNotification
@@ -118,20 +111,6 @@ NSString* const FavouriteTabViewControllerFavouritesHasPhaseNotification =
 }
 
 #pragma mark - Notification
-
-- (void)checkTranslationNotification:(NSNotification *)notification {
-    NSString *phrase = [notification.userInfo objectForKey:TranslationTabViewControllerTranslationUserInfoKey];
-    
-    for (NSDictionary *favourite in self.favourites) {
-        NSString *sourcePhrase = [favourite objectForKey:@"sourcePhrase"];
-        
-        if ([sourcePhrase isEqualToString:phrase]) {
-            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-            [nc postNotificationName:FavouriteTabViewControllerFavouritesHasPhaseNotification object:nil];
-            return;
-        }
-    }
-}
 
 - (void)addToFavouriteNotification:(NSNotification *)notification {
     NSDictionary *infoAboutTranslation = [notification.userInfo

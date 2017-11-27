@@ -4,14 +4,12 @@
 #import "../Models/TranslatorAPI.h"
 #import "../Models/Translation/Translation+CoreDataClass.h"
 #import "../Models/Settings/Settings+CoreDataClass.h"
+#import "../Models/Favourite/Favourite+CoreDataClass.h"
 
 #import "TranslateTabViewController.h"
 #import "LanguagesViewController.h"
-#import "FavouriteTabViewController.h"
 #import "SettingsTabTableViewController.h"
 
-NSString* const TranslationTabViewControllerCheckTranslationNotification =
-                @"TranslationTabViewControllerCheckTranslationNotification";
 NSString* const TranslationTabViewControllerAddToFavouriteNotification =
                 @"TranslationTabViewControllerAddToFavouriteNotification";
 NSString* const TranslationTabViewControllerRemoveFromFavouriteNotification =
@@ -164,11 +162,6 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(detectedOtherSourceLanguageNotification:)
                                                  name:TranslatorAPIDetectedOtherSourceLanguageNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(favouritesHasPhraseNotification:)
-                                                 name:FavouriteTabViewControllerFavouritesHasPhaseNotification
                                                object:nil];
     
     if ([self.inputTextView.text length] != 0) {
@@ -547,16 +540,16 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
 }
 
 - (void)setStarIcon {
-    [self.addToFavouriteButton setImage:[UIImage imageNamed:@"starIcon"]
-                               forState:UIControlStateNormal];
+    [self.addToFavouriteButton setImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
     
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:self.inputTextView.text
-                                                         forKey:TranslationTabViewControllerTranslationUserInfoKey];
+    NSArray *favouriteData = [self.context executeFetchRequest:[Favourite fetchRequest] error:nil];
     
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc postNotificationName:TranslationTabViewControllerCheckTranslationNotification
-                      object:nil
-                    userInfo:userInfo];
+    for (Favourite *favouriteItem in favouriteData) {
+        if ([self.inputTextView.text isEqualToString:favouriteItem.sourceText]) {
+            [self.addToFavouriteButton setImage:[UIImage imageNamed:@"starIconSelected"] forState:UIControlStateNormal];
+            break;
+        }
+    }
 }
 
 - (void)applyThemeWithColor:(UIColor *)color fontColor:(UIColor *)fontColor {

@@ -2,7 +2,6 @@
 
 #import "CommonViewController.h"
 
-extern NSString* const TranslationTabViewControllerCheckTranslationNotification;
 extern NSString* const TranslationTabViewControllerAddToFavouriteNotification;
 extern NSString* const TranslationTabViewControllerRemoveFromFavouriteNotification;
 
