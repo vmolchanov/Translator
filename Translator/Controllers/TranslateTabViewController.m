@@ -26,6 +26,7 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
 @property (strong, nonatomic) UIColor  *placeholderColor;
 @property (strong, nonatomic) UIButton *clickedButton;
 @property (strong, nonatomic) NSString *detectedLanguage;
+@property (assign, nonatomic) BOOL      orientationWasChanged;
 
 @end
 
@@ -41,6 +42,8 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.orientationWasChanged = NO;
     
     // set corner radius
     self.inputView.layer.cornerRadius = 3;
@@ -150,7 +153,8 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
-    [self viewWillTransitionToSize:[[UIScreen mainScreen] bounds].size withTransitionCoordinator:nil];
+    CGFloat offset = [self offsetByStatusBarHeight:CGRectGetHeight([[UIApplication sharedApplication] statusBarFrame])];
+    [self renderElementsWithScreenSize:[[UIScreen mainScreen] bounds].size statusBarOffset:offset];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -162,6 +166,11 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(detectedOtherSourceLanguageNotification:)
                                                  name:TranslatorAPIDetectedOtherSourceLanguageNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(statusBarFrameWillChangeNotification:)
+                                                 name:UIApplicationWillChangeStatusBarFrameNotification
                                                object:nil];
     
     if ([self.inputTextView.text length] != 0) {
@@ -181,103 +190,15 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     
-    static const CGFloat viewOffset = 5.0f;
-    static const CGFloat innerOffset = 16.0f;
-    static const CGFloat inputViewHeight = 200.0f;
-    static const CGFloat outputLabelLeftOffset = 23.0f;
-    static const CGFloat tabBarHeight = 49.0f;
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     
-    CGFloat langBarHeight = CGRectGetHeight(self.languagesBar.frame);
-    CGFloat outputLabelWidth = CGRectGetWidth(self.outputLabel.bounds);
-    
-    CGRect tabBarBounds = self.tabBarController.tabBar.bounds;
-    tabBarBounds.size.height = 49.0f;
-    self.tabBarController.tabBar.bounds = tabBarBounds;
-    
-    if (size.width > size.height) {
-        CGFloat viewHeight = size.height - langBarHeight - 2 * viewOffset - tabBarHeight;
-        CGFloat viewWidth = (size.width - 3 * viewOffset) / 2;
-        
-        CGFloat inputTextViewHeight = viewHeight - 2 * innerOffset;
-        CGFloat inputTextViewWidth = viewWidth - 3 * innerOffset - CGRectGetWidth(self.clearTextViewButton.bounds);
-        
-        [self view:self.inputView
-         withWidth:viewWidth
-            height:viewHeight
-                 x:5
-                 y:langBarHeight + viewOffset];
-        
-        [self view:self.outputView
-         withWidth:viewWidth
-            height:viewHeight
-                 x:viewWidth + 2 * viewOffset
-                 y:langBarHeight + viewOffset];
-        
-        [self view:self.inputTextView
-         withWidth:inputTextViewWidth
-            height:inputTextViewHeight
-                 x:innerOffset
-                 y:innerOffset];
-        
-        [self view:self.clearTextViewButton
-         withWidth:CGRectGetWidth(self.clearTextViewButton.bounds)
-            height:CGRectGetHeight(self.clearTextViewButton.bounds)
-                 x:2 * innerOffset + inputTextViewWidth
-                 y:innerOffset];
-        
-        [self view:self.scrollView
-         withWidth:outputLabelWidth + outputLabelLeftOffset
-            height:viewHeight
-                 x:0
-                 y:0];
-        
-        [self view:self.languagesBar
-         withWidth:size.width
-            height:CGRectGetHeight(self.languagesBar.bounds)
-                 x:CGRectGetMinX(self.languagesBar.frame)
-                 y:CGRectGetMinY(self.languagesBar.frame)];
-    } else {
-        CGFloat viewWidth = size.width - 2 * viewOffset;
-        
-        CGFloat inputTextViewHeight = inputViewHeight - 2 * innerOffset;
-        CGFloat inputTextViewWidth = viewWidth - 3 * innerOffset - CGRectGetWidth(self.clearTextViewButton.bounds);
-        
-        [self view:self.inputView
-         withWidth:viewWidth
-            height:inputViewHeight
-                 x:viewOffset
-                 y:langBarHeight + viewOffset];
-        
-        [self view:self.outputView
-         withWidth:viewWidth
-            height:size.height - langBarHeight - inputViewHeight - 3 * viewOffset - tabBarHeight
-                 x:viewOffset
-                 y:langBarHeight + 2 * viewOffset + CGRectGetHeight(self.inputView.bounds)];
-        
-        [self view:self.inputTextView
-         withWidth:inputTextViewWidth
-            height:inputTextViewHeight
-                 x:innerOffset
-                 y:innerOffset];
-        
-        [self view:self.clearTextViewButton
-         withWidth:CGRectGetWidth(self.clearTextViewButton.bounds)
-            height:CGRectGetHeight(self.clearTextViewButton.bounds)
-                 x:2 * innerOffset + inputTextViewWidth
-                 y:innerOffset];
-        
-        [self view:self.scrollView
-         withWidth:outputLabelWidth + outputLabelLeftOffset
-            height:CGRectGetHeight(self.outputView.bounds)
-                 x:0
-                 y:0];
-        
-        [self view:self.languagesBar
-         withWidth:size.width
-            height:CGRectGetHeight(self.languagesBar.bounds)
-                 x:CGRectGetMinX(self.languagesBar.frame)
-                 y:CGRectGetMinY(self.languagesBar.frame)];
-    }
+    self.orientationWasChanged = YES;
+    [coordinator animateAlongsideTransition:nil
+                                 completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+                                     CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+                                     CGFloat offset = [self offsetByStatusBarHeight:CGRectGetHeight(statusBarFrame)];
+                                     [self renderElementsWithScreenSize:size statusBarOffset:offset];
+                                 }];
 }
 
 #pragma mark - Static methods
@@ -462,6 +383,18 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
                     fontColor:[userInfo objectForKey:@"fontColor"]];
 }
 
+- (void)statusBarFrameWillChangeNotification:(NSNotification *)notification {
+    CGRect newStatusBarFrame = [[notification.userInfo valueForKey:UIApplicationStatusBarFrameUserInfoKey] CGRectValue];
+    CGFloat offset = [self offsetByStatusBarHeight:CGRectGetHeight(newStatusBarFrame)];
+    
+    if (!self.orientationWasChanged) {
+        [self renderElementsWithScreenSize:[[UIScreen mainScreen] bounds].size
+                           statusBarOffset:offset];
+    }
+    
+    self.orientationWasChanged = NO;
+}
+
 #pragma mark - UITextViewDelegate
 
 - (void)textViewDidChange:(UITextView *)textView {
@@ -558,6 +491,118 @@ NSString* const TranslationTabViewControllerInfoAboutTranslationUserInfoKey =
     
     [self.sourceLanguageButton setTitleColor:fontColor forState:UIControlStateNormal];
     [self.translationLanguageButton setTitleColor:fontColor forState:UIControlStateNormal];
+}
+
+- (BOOL)floatValue:(CGFloat)value isEqualToAnotherFloatValue:(CGFloat)anotherValue {
+    return fabs(value - anotherValue) < 0.00001;
+}
+
+- (CGFloat)offsetByStatusBarHeight:(CGFloat)statusBarHeight {
+    static const CGFloat inCallStatusBarHeight = 40.0f;
+    
+    CGFloat offset = [self floatValue:statusBarHeight isEqualToAnotherFloatValue:inCallStatusBarHeight] ? 20.0f : 0.0f;
+    
+    return offset;
+}
+
+- (void)renderElementsWithScreenSize:(CGSize)size statusBarOffset:(CGFloat)statusBarOffset {
+    static const CGFloat viewOffset = 5.0f;
+    static const CGFloat innerOffset = 16.0f;
+    static const CGFloat inputViewHeight = 200.0f;
+    static const CGFloat outputLabelLeftOffset = 23.0f;
+    static const CGFloat tabBarHeight = 49.0f;
+    
+    CGFloat langBarHeight = CGRectGetHeight(self.languagesBar.frame);
+    CGFloat outputLabelWidth = CGRectGetWidth(self.outputLabel.bounds);
+    
+    CGRect tabBarBounds = self.tabBarController.tabBar.bounds;
+    tabBarBounds.size.height = 49.0f;
+    self.tabBarController.tabBar.bounds = tabBarBounds;
+    
+    if (size.width > size.height) {
+        CGFloat viewHeight = size.height - langBarHeight - 2 * viewOffset - tabBarHeight;
+        CGFloat viewWidth = (size.width - 3 * viewOffset) / 2;
+        
+        CGFloat inputTextViewHeight = viewHeight - 2 * innerOffset;
+        CGFloat inputTextViewWidth = viewWidth - 3 * innerOffset - CGRectGetWidth(self.clearTextViewButton.bounds);
+        
+        [self view:self.inputView
+         withWidth:viewWidth
+            height:viewHeight - statusBarOffset
+                 x:5
+                 y:langBarHeight + viewOffset];
+        
+        [self view:self.outputView
+         withWidth:viewWidth
+            height:viewHeight - statusBarOffset
+                 x:viewWidth + 2 * viewOffset
+                 y:langBarHeight + viewOffset];
+        
+        [self view:self.inputTextView
+         withWidth:inputTextViewWidth
+            height:inputTextViewHeight
+                 x:innerOffset
+                 y:innerOffset];
+        
+        [self view:self.clearTextViewButton
+         withWidth:CGRectGetWidth(self.clearTextViewButton.bounds)
+            height:CGRectGetHeight(self.clearTextViewButton.bounds)
+                 x:2 * innerOffset + inputTextViewWidth
+                 y:innerOffset];
+        
+        [self view:self.scrollView
+         withWidth:outputLabelWidth + outputLabelLeftOffset
+            height:viewHeight
+                 x:0
+                 y:0];
+        
+        [self view:self.languagesBar
+         withWidth:size.width
+            height:CGRectGetHeight(self.languagesBar.bounds)
+                 x:CGRectGetMinX(self.languagesBar.frame)
+                 y:CGRectGetMinY(self.languagesBar.frame)];
+    } else {
+        CGFloat viewWidth = size.width - 2 * viewOffset;
+        
+        CGFloat inputTextViewHeight = inputViewHeight - 2 * innerOffset;
+        CGFloat inputTextViewWidth = viewWidth - 3 * innerOffset - CGRectGetWidth(self.clearTextViewButton.bounds);
+        
+        [self view:self.inputView
+         withWidth:viewWidth
+            height:inputViewHeight
+                 x:viewOffset
+                 y:langBarHeight + viewOffset];
+        
+        [self view:self.outputView
+         withWidth:viewWidth
+            height:size.height - langBarHeight - inputViewHeight - 3 * viewOffset - tabBarHeight - statusBarOffset
+                 x:viewOffset
+                 y:langBarHeight + 2 * viewOffset + CGRectGetHeight(self.inputView.bounds)];
+        
+        [self view:self.inputTextView
+         withWidth:inputTextViewWidth
+            height:inputTextViewHeight
+                 x:innerOffset
+                 y:innerOffset];
+        
+        [self view:self.clearTextViewButton
+         withWidth:CGRectGetWidth(self.clearTextViewButton.bounds)
+            height:CGRectGetHeight(self.clearTextViewButton.bounds)
+                 x:2 * innerOffset + inputTextViewWidth
+                 y:innerOffset];
+        
+        [self view:self.scrollView
+         withWidth:outputLabelWidth + outputLabelLeftOffset
+            height:CGRectGetHeight(self.outputView.bounds)
+                 x:0
+                 y:0];
+        
+        [self view:self.languagesBar
+         withWidth:size.width
+            height:CGRectGetHeight(self.languagesBar.bounds)
+                 x:CGRectGetMinX(self.languagesBar.frame)
+                 y:CGRectGetMinY(self.languagesBar.frame)];
+    }
 }
 
 @end
