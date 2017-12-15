@@ -96,6 +96,9 @@
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Очистить избранное"
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                             for (NSDictionary *item in weakSelf.favourites) {
+                                                                 [self deleteFavouriteItemFromCoreData:item];
+                                                             }
                                                              weakSelf.favourites = [NSMutableArray array];
                                                              [weakSelf.tableView reloadData];
                                                              [weakSelf setAlphaForTableView:weakSelf.tableView];
@@ -200,6 +203,8 @@
     self.topBarTitleLabel.textColor = fontColor;
     [self.clearButton setTitleColor:fontColor forState:UIControlStateNormal];
 }
+
+#pragma mark - Private methods
 
 - (void)deleteFavouriteItemFromCoreData:(NSDictionary *)item {
     NSArray *favourites = [self.context executeFetchRequest:[Favourite fetchRequest] error:nil];
